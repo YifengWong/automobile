@@ -14,16 +14,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.AutosSmallClassesMiddle;
 import automobile.business.entities.BigClass;
+import automobile.business.entities.GarageDetail;
+import automobile.business.entities.MsgToGarage;
 import automobile.business.entities.SmallClass;
 import automobile.business.entities.Test;
+import automobile.business.entities.util.JsonManager;
 import automobile.business.services.AutoMakerDetailService;
 import automobile.business.services.AutosSmallClassesMiddleService;
 import automobile.business.services.BigClassService;
+import automobile.business.services.GarageDetailService;
+import automobile.business.services.MsgToGarageService;
 import automobile.business.services.SmallClassService;
-import automobile.util.converter.JsonStringConverter;
 
 @Controller
 public class AutomobileController {
@@ -33,12 +39,15 @@ public class AutomobileController {
 	private SmallClassService smallClassService = ctx.getBean(SmallClassService.class);
 	private AutoMakerDetailService autoMakerDetailService = ctx.getBean(AutoMakerDetailService.class); 
 	private AutosSmallClassesMiddleService autosSmallClassesMiddleService = ctx.getBean(AutosSmallClassesMiddleService.class);
+	private MsgToGarageService msgToGarageService = ctx.getBean(MsgToGarageService.class);
+	private GarageDetailService garageDetailService = ctx.getBean(GarageDetailService.class);
+	
 	
 	@RequestMapping("/testJson")
 	public void testJson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Test t = new Test("1", "Name");
 		try {
-			response.getWriter().write(JsonStringConverter.getJSONString("test", t));
+			response.getWriter().write(JsonManager.getJSONString("test", t));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -69,6 +78,16 @@ public class AutomobileController {
 		List<AutosSmallClassesMiddle> list = autosSmallClassesMiddleService.findBySmallClass(small1);
 		
 		
-		response.getWriter().write(JsonStringConverter.getJSONString("allClass", bigClassService.findAll()));
+		GarageDetail gd1 = new GarageDetail("garage1");
+		garageDetailService.create(gd1);
+		
+		MsgToGarage msg1 = new MsgToGarage(auto1, gd1, "contengmsg");
+		msgToGarageService.create(msg1);
+		
+		
+		response.getWriter().write(JsonManager.getJSONString("smallClass", smallClassService.findAll()) + "\n");
+		response.getWriter().write(JsonManager.getJSONString("allClasses", bigClassService.findAll()) + "\n");
+		response.getWriter().write(JsonManager.getJSONString("allClasses", autoMakerDetailService.findAll()) + "\n");
+		response.getWriter().write(JsonManager.getJSONString("detail1", autoMakerDetailService.findById(4)));
 	}
 }

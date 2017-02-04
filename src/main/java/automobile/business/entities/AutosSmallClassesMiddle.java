@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author CrazeWong
  *
@@ -28,6 +30,7 @@ public class AutosSmallClassesMiddle implements Serializable {
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="smallClassId")
+	@JsonIgnore
 	private SmallClass smallClass = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -60,14 +63,44 @@ public class AutosSmallClassesMiddle implements Serializable {
 	public void setAutoMakerDetail(AutoMakerDetail autoMakerDetail) {
 		this.autoMakerDetail = autoMakerDetail;
 	}
-	
+
 	@Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("AutoMakerDetail [id=").append(autoMakerDetail.getAutoMakerDetailId())
-        		.append("] SmallClass [id=").append(smallClass.getSmallClassId()).append("]");
-        return builder.toString();
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((autosSmallClassesMiddleId == null) ? 0 : autosSmallClassesMiddleId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AutosSmallClassesMiddle other = (AutosSmallClassesMiddle) obj;
+		if (autosSmallClassesMiddleId == null) {
+			if (other.autosSmallClassesMiddleId != null)
+				return false;
+		} else if (!autosSmallClassesMiddleId.equals(other.autosSmallClassesMiddleId))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"autosSmallClassesMiddleId\":\"");
+		builder.append(autosSmallClassesMiddleId);
+		builder.append("\",\"smallClass\":");
+		builder.append(smallClass);
+		builder.append("}");
+		return builder.toString();
+	}
+	
+	
 
 	
 }

@@ -12,54 +12,36 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
-@Entity(name="DiscussToGarage")
-public class DiscussToGarage implements Serializable {
-
+@Entity(name="MsgToGarage")
+public class MsgToGarage implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer discussToGarageId = null;
-	
+    private Integer msgToGarageId = null;
+
 	// from
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="autoMakerDetailId")
-	private AutoMakerDetail autoMakerDetail = null;
+	protected AutoMakerDetail autoMakerDetail = null;
 	
 	// to
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="garageDetailId")
-    private GarageDetail garageDetail = null;
+	protected GarageDetail garageDetail = null;
 	
 	
 	@Column(nullable = false)
-    private Integer stars = null;
-	
-	
-	@Column(nullable = false)
-    private String discuss = null;
+    private String content = null;
 
-
-	public DiscussToGarage(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, Integer stars, String discuss) {
+	public MsgToGarage(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, String content) {
 		super();
 		this.autoMakerDetail = autoMakerDetail;
 		this.garageDetail = garageDetail;
-		this.stars = stars;
-		this.discuss = discuss;
+		this.content = content;
 	}
-
-
-	public Integer getDiscussToGarageId() {
-		return discussToGarageId;
-	}
-
-
-	public void setDiscussToGarageId(Integer discussToGarageId) {
-		this.discussToGarageId = discussToGarageId;
-	}
-
-
+	
 	public AutoMakerDetail getAutoMakerDetail() {
 		return autoMakerDetail;
 	}
@@ -80,34 +62,22 @@ public class DiscussToGarage implements Serializable {
 	}
 
 
-	public Integer getStars() {
-		return stars;
+	public String getContent() {
+		return content;
 	}
 
 
-	public void setStars(Integer stars) {
-		this.stars = stars;
+	public void setContent(String content) {
+		this.content = content;
 	}
-
-
-	public String getDiscuss() {
-		return discuss;
-	}
-
-
-	public void setDiscuss(String discuss) {
-		this.discuss = discuss;
-	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((discussToGarageId == null) ? 0 : discussToGarageId.hashCode());
+		result = prime * result + ((msgToGarageId == null) ? 0 : msgToGarageId.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -117,29 +87,26 @@ public class DiscussToGarage implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DiscussToGarage other = (DiscussToGarage) obj;
-		if (discussToGarageId == null) {
-			if (other.discussToGarageId != null)
+		MsgToGarage other = (MsgToGarage) obj;
+		if (msgToGarageId == null) {
+			if (other.msgToGarageId != null)
 				return false;
-		} else if (!discussToGarageId.equals(other.discussToGarageId))
+		} else if (!msgToGarageId.equals(other.msgToGarageId))
 			return false;
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{\"discussToGarageId\":\"");
-		builder.append(discussToGarageId);
+		builder.append("{\"msgToGarageId\":\"");
+		builder.append(msgToGarageId);
 		builder.append("\",\"autoMakerDetail\":");
 		builder.append(autoMakerDetail);
 		builder.append(",\"garageDetail\":");
 		builder.append(garageDetail);
-		builder.append(",\"stars\":\"");
-		builder.append(stars);
-		builder.append("\",\"discuss\":\"");
-		builder.append(discuss);
+		builder.append(",\"content\":\"");
+		builder.append(content);
 		builder.append("\"}");
 		return builder.toString();
 	}

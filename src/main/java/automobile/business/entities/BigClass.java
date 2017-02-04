@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import automobile.util.converter.JsonStringConverter;
 
 /**
  * @author CrazeWong
@@ -63,31 +62,44 @@ public class BigClass implements Serializable {
 	}
 
 	@Override
-    public int hashCode() {
-        return bigClassId;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((bigClassId == null) ? 0 : bigClassId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        final BigClass other = (BigClass) obj;
-        if (bigClassId == null) {
-            if (other.bigClassId != null) return false;
-        } else if (!bigClassId.equals(other.bigClassId))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BigClass other = (BigClass) obj;
+		if (bigClassId == null) {
+			if (other.bigClassId != null)
+				return false;
+		} else if (!bigClassId.equals(other.bigClassId))
+			return false;
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        try {
-			return JsonStringConverter.getJSONString("bigClass", this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return "bigClass : id = " + bigClassId;
-    }
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"bigClassId\":\"");
+		builder.append(bigClassId);
+		builder.append("\",\"name\":\"");
+		builder.append(name);
+		builder.append("\",\"smallClassesSet\":");
+		builder.append(smallClassesSet);
+		builder.append("}");
+		return builder.toString();
+	}
+	
+	
+	
 
 }

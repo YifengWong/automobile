@@ -8,8 +8,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import automobile.util.converter.JsonStringConverter;
-
 /**
  * @author CrazeWong
  * 小分类，包括车型、水箱等。
@@ -24,7 +22,7 @@ public class SmallClass implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer smallClassId = null;
 	
-	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="bigClassId")
 	@JsonIgnore
 	private BigClass bigClass = null;
@@ -32,8 +30,7 @@ public class SmallClass implements Serializable {
 	@Column(nullable = false, unique = true)
     private String name = null;
 	
-	@OneToMany(mappedBy="smallClass", fetch = FetchType.LAZY)
-	@JsonIgnore
+	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
 
 	
@@ -79,34 +76,43 @@ public class SmallClass implements Serializable {
 	public void setAutosSmallClassesMiddleSet(Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet) {
 		this.autosSmallClassesMiddleSet = autosSmallClassesMiddleSet;
 	}
-
+	
 
 	@Override
-    public int hashCode() {
-        return smallClassId;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((smallClassId == null) ? 0 : smallClassId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        final SmallClass other = (SmallClass) obj;
-        if (smallClassId == null) {
-            if (other.smallClassId != null) return false;
-        } else if (!smallClassId.equals(other.smallClassId))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SmallClass other = (SmallClass) obj;
+		if (smallClassId == null) {
+			if (other.smallClassId != null)
+				return false;
+		} else if (!smallClassId.equals(other.smallClassId))
+			return false;
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        try {
-			return JsonStringConverter.getJSONString("smallClass", this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return "smallClass : id = " + smallClassId;
-    }
-
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"smallClassId\":\"");
+		builder.append(smallClassId);
+		builder.append("\",\"name\":\"");
+		builder.append(name);
+		builder.append("\"}");
+		return builder.toString();
+	}
+	
+	
 }

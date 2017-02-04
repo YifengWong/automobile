@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import automobile.util.converter.JsonStringConverter;
 
 /**
  * @author CrazeWong
@@ -27,10 +26,10 @@ public class AutoMakerDetail implements Serializable {
 	@Column(nullable = false)
     private String name = null;
 	
-	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.LAZY)
+	
+	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
-	
 	
 	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -40,29 +39,45 @@ public class AutoMakerDetail implements Serializable {
 	@JsonIgnore
 	private Set<DiscussToGarage> discussToGarageSet = new HashSet<DiscussToGarage>();
 	
+	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<MsgToAutoMaker> msgToAutoMaker = new HashSet<MsgToAutoMaker>();
+	
+	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<MsgToGarage> msgToGarage = new HashSet<MsgToGarage>();
+	
 	@Column(nullable = false)
+	@JsonIgnore
     private String managerName = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String phone = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String qq = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String wechat = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String province = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String city = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String address = null;
 	
 	@Column(nullable = false)
-    private Integer like = 0;
+	@JsonIgnore
+    private Integer likes = 0;
 	
 	
 	public AutoMakerDetail() {
@@ -81,6 +96,7 @@ public class AutoMakerDetail implements Serializable {
 		this.province = province;
 		this.city = city;
 		this.address = address;
+		this.likes = 0;
 	}
 
 
@@ -89,13 +105,14 @@ public class AutoMakerDetail implements Serializable {
 	public AutoMakerDetail(final String name) {
 		super();
 		this.name = name;
-		this.managerName = "";
-		this.phone = "";
-		this.qq = "";
-		this.wechat = "";
-		this.province = "";
-		this.city = "";
-		this.address = "";
+		this.managerName = "1";
+		this.phone = "1";
+		this.qq = "1";
+		this.wechat = "1";
+		this.province = "1";
+		this.city = "1";
+		this.address = "1";
+		this.likes = 0;
 	}
 	
 	public Integer getAutoMakerDetailId() {
@@ -124,7 +141,16 @@ public class AutoMakerDetail implements Serializable {
 	}
 	
 	
-	
+	public Set<MsgToGarage> getMsgToGarage() {
+		return msgToGarage;
+	}
+
+
+	public void setMsgToGarage(Set<MsgToGarage> msgToGarage) {
+		this.msgToGarage = msgToGarage;
+	}
+
+
 	public String getManagerName() {
 		return managerName;
 	}
@@ -188,52 +214,100 @@ public class AutoMakerDetail implements Serializable {
 	}
 
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikes() {
+		return likes;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
-	}
-
-	// getter for json
-	public String getSmallClasses() {
-		if (autosSmallClassesMiddleSet.size() == 0) return "";
-		StringBuilder strBuilder = new StringBuilder();
-		for(AutosSmallClassesMiddle asc: autosSmallClassesMiddleSet) {
-			strBuilder.append(asc.getSmallClass().getName()).append(" ");
-		}
-		return strBuilder.toString();
+	public void setLikes(Integer likes) {
+		this.likes = likes;
 	}
 	
 	
+	public Set<DiscussToAutoMaker> getDiscussToAutoMakerSet() {
+		return discussToAutoMakerSet;
+	}
+
+
+	public void setDiscussToAutoMakerSet(Set<DiscussToAutoMaker> discussToAutoMakerSet) {
+		this.discussToAutoMakerSet = discussToAutoMakerSet;
+	}
+
+
+	public Set<DiscussToGarage> getDiscussToGarageSet() {
+		return discussToGarageSet;
+	}
+
+
+	public void setDiscussToGarageSet(Set<DiscussToGarage> discussToGarageSet) {
+		this.discussToGarageSet = discussToGarageSet;
+	}
+	
+	
+	public Set<MsgToAutoMaker> getMsgToAutoMaker() {
+		return msgToAutoMaker;
+	}
+
+
+	public void setMsgToAutoMaker(Set<MsgToAutoMaker> msgToAutoMaker) {
+		this.msgToAutoMaker = msgToAutoMaker;
+	}
 
 	@Override
-    public int hashCode() {
-        return autoMakerDetailId;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((autoMakerDetailId == null) ? 0 : autoMakerDetailId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        final AutoMakerDetail other = (AutoMakerDetail) obj;
-        if (autoMakerDetailId == null) {
-            if (other.autoMakerDetailId != null) return false;
-        } else if (!autoMakerDetailId.equals(other.autoMakerDetailId))
-            return false;
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        try {
-			return JsonStringConverter.getJSONString("autoMakerDetail", this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return "autoMakerDetail : id = " + autoMakerDetailId;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AutoMakerDetail other = (AutoMakerDetail) obj;
+		if (autoMakerDetailId == null) {
+			if (other.autoMakerDetailId != null)
+				return false;
+		} else if (!autoMakerDetailId.equals(other.autoMakerDetailId))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"autoMakerDetailId\":\"");
+		builder.append(autoMakerDetailId);
+		builder.append("\",\"name\":\"");
+		builder.append(name);
+		builder.append("\",\"autosSmallClassesMiddleSet\":");
+		builder.append(autosSmallClassesMiddleSet);
+		builder.append(",\"managerName\":\"");
+		builder.append(managerName);
+		builder.append("\",\"phone\":\"");
+		builder.append(phone);
+		builder.append("\",\"qq\":\"");
+		builder.append(qq);
+		builder.append("\",\"wechat\":\"");
+		builder.append(wechat);
+		builder.append("\",\"province\":\"");
+		builder.append(province);
+		builder.append("\",\"city\":\"");
+		builder.append(city);
+		builder.append("\",\"address\":\"");
+		builder.append(address);
+		builder.append("\",\"likes\":\"");
+		builder.append(likes);
+		builder.append("\"}");
+		return builder.toString();
+	}
+
+	
 
 }

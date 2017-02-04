@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import automobile.util.converter.JsonStringConverter;
 
 /**
  * @author CrazeWong
@@ -28,28 +27,36 @@ public class GarageDetail implements Serializable {
     private String name = null;	
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String managerName = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String phone = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String qq = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String wechat = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String province = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String city = null;
 	
 	@Column(nullable = false)
+	@JsonIgnore
     private String address = null;
 	
 	@Column(nullable = false)
-    private Integer like = 0;
+	@JsonIgnore
+    private Integer likes = 0;
 	
 	@OneToMany(mappedBy="garageDetail", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -59,6 +66,14 @@ public class GarageDetail implements Serializable {
 	@JsonIgnore
 	private Set<DiscussToGarage> discussToGarageSet = new HashSet<DiscussToGarage>();
 	
+	@OneToMany(mappedBy="garageDetail", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<MsgToAutoMaker> msgToAutoMakerSet = new HashSet<MsgToAutoMaker>();
+	
+	@OneToMany(mappedBy="garageDetail", fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Set<MsgToGarage> msgToGarageSet = new HashSet<MsgToGarage>();
+	
 	
 	public GarageDetail() {
 		super();
@@ -66,7 +81,7 @@ public class GarageDetail implements Serializable {
 	
 	
 	public GarageDetail(String name, String managerName, String phone, String qq, String wechat, String province,
-			String city, String address, Integer like) {
+			String city, String address, Integer likes) {
 		super();
 		this.name = name;
 		this.managerName = managerName;
@@ -76,7 +91,7 @@ public class GarageDetail implements Serializable {
 		this.province = province;
 		this.city = city;
 		this.address = address;
-		this.like = like;
+		this.likes = likes;
 	}
 
 
@@ -84,16 +99,62 @@ public class GarageDetail implements Serializable {
 	public GarageDetail(final String name) {
 		super();
 		this.name = name;
-		this.managerName = "";
-		this.phone = "";
-		this.qq = "";
-		this.wechat = "";
-		this.province = "";
-		this.city = "";
-		this.address = "";
+		this.managerName = "1";
+		this.phone = "1";
+		this.qq = "1";
+		this.wechat = "1";
+		this.province = "1";
+		this.city = "1";
+		this.address = "1";
+		this.likes = 0;
 	}
+
 	
-	
+
+
+	public Set<DiscussToAutoMaker> getDiscussToAutoMakerSet() {
+		return discussToAutoMakerSet;
+	}
+
+
+	public void setDiscussToAutoMakerSet(Set<DiscussToAutoMaker> discussToAutoMakerSet) {
+		this.discussToAutoMakerSet = discussToAutoMakerSet;
+	}
+
+
+	public Set<DiscussToGarage> getDiscussToGarageSet() {
+		return discussToGarageSet;
+	}
+
+
+	public void setDiscussToGarageSet(Set<DiscussToGarage> discussToGarageSet) {
+		this.discussToGarageSet = discussToGarageSet;
+	}
+
+
+	public Set<MsgToAutoMaker> getMsgToAutoMakerSet() {
+		return msgToAutoMakerSet;
+	}
+
+
+	public void setMsgToAutoMakerSet(Set<MsgToAutoMaker> msgToAutoMakerSet) {
+		this.msgToAutoMakerSet = msgToAutoMakerSet;
+	}
+
+
+	public Set<MsgToGarage> getMsgToGarageSet() {
+		return msgToGarageSet;
+	}
+
+
+	public void setMsgToGarageSet(Set<MsgToGarage> msgToGarageSet) {
+		this.msgToGarageSet = msgToGarageSet;
+	}
+
+
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
 
 
 	public Integer getGarageDetailId() {
@@ -178,41 +239,68 @@ public class GarageDetail implements Serializable {
 	}
 
 
-	public Integer getLike() {
-		return like;
+	public Integer getLikes() {
+		return likes;
 	}
 
-	public void setLike(Integer like) {
-		this.like = like;
+	public void setLike(Integer likes) {
+		this.likes = likes;
 	}
 
 
 	@Override
-    public int hashCode() {
-        return garageDetailId;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((garageDetailId == null) ? 0 : garageDetailId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        final GarageDetail other = (GarageDetail) obj;
-        if (garageDetailId == null) {
-            if (other.garageDetailId != null) return false;
-        } else if (!garageDetailId.equals(other.garageDetailId))
-            return false;
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        try {
-			return JsonStringConverter.getJSONString("garageDetail", this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return "garageDetail : id = " + garageDetailId;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GarageDetail other = (GarageDetail) obj;
+		if (garageDetailId == null) {
+			if (other.garageDetailId != null)
+				return false;
+		} else if (!garageDetailId.equals(other.garageDetailId))
+			return false;
+		return true;
+	}
 
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"garageDetailId\":\"");
+		builder.append(garageDetailId);
+		builder.append("\",\"name\":\"");
+		builder.append(name);
+		builder.append("\",\"managerName\":\"");
+		builder.append(managerName);
+		builder.append("\",\"phone\":\"");
+		builder.append(phone);
+		builder.append("\",\"qq\":\"");
+		builder.append(qq);
+		builder.append("\",\"wechat\":\"");
+		builder.append(wechat);
+		builder.append("\",\"province\":\"");
+		builder.append(province);
+		builder.append("\",\"city\":\"");
+		builder.append(city);
+		builder.append("\",\"address\":\"");
+		builder.append(address);
+		builder.append("\",\"likes\":\"");
+		builder.append(likes);
+		builder.append("\"}");
+		return builder.toString();
+	}
+	
+	
 }

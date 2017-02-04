@@ -12,91 +12,68 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
-@Entity(name="DiscussToGarage")
-public class DiscussToGarage implements Serializable {
+@Entity(name="DiscussToAutoMaker")
+public class MsgToAutoMaker implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer discussToGarageId = null;
+    private Integer msgToAutoMakerId = null;
 	
-	// from
+	// to 
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="autoMakerDetailId")
 	private AutoMakerDetail autoMakerDetail = null;
 	
-	// to
+	// from
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="garageDetailId")
     private GarageDetail garageDetail = null;
 	
 	
 	@Column(nullable = false)
-    private Integer stars = null;
+    private String content = null;
 	
 	
-	@Column(nullable = false)
-    private String discuss = null;
-
-
-	public DiscussToGarage(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, Integer stars, String discuss) {
+	public MsgToAutoMaker(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, String content) {
 		super();
 		this.autoMakerDetail = autoMakerDetail;
 		this.garageDetail = garageDetail;
-		this.stars = stars;
-		this.discuss = discuss;
+		this.content = content;
+	}
+	
+
+	public Integer getMsgToAutoMakerId() {
+		return msgToAutoMakerId;
 	}
 
-
-	public Integer getDiscussToGarageId() {
-		return discussToGarageId;
+	public void setMsgToAutoMakerId(Integer msgToAutoMakerId) {
+		this.msgToAutoMakerId = msgToAutoMakerId;
 	}
-
-
-	public void setDiscussToGarageId(Integer discussToGarageId) {
-		this.discussToGarageId = discussToGarageId;
-	}
-
 
 	public AutoMakerDetail getAutoMakerDetail() {
 		return autoMakerDetail;
 	}
 
-
 	public void setAutoMakerDetail(AutoMakerDetail autoMakerDetail) {
 		this.autoMakerDetail = autoMakerDetail;
 	}
-
 
 	public GarageDetail getGarageDetail() {
 		return garageDetail;
 	}
 
-
 	public void setGarageDetail(GarageDetail garageDetail) {
 		this.garageDetail = garageDetail;
 	}
 
-
-	public Integer getStars() {
-		return stars;
+	public String getContent() {
+		return content;
 	}
 
-
-	public void setStars(Integer stars) {
-		this.stars = stars;
-	}
-
-
-	public String getDiscuss() {
-		return discuss;
-	}
-
-
-	public void setDiscuss(String discuss) {
-		this.discuss = discuss;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 
@@ -104,7 +81,7 @@ public class DiscussToGarage implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((discussToGarageId == null) ? 0 : discussToGarageId.hashCode());
+		result = prime * result + ((msgToAutoMakerId == null) ? 0 : msgToAutoMakerId.hashCode());
 		return result;
 	}
 
@@ -117,11 +94,11 @@ public class DiscussToGarage implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		DiscussToGarage other = (DiscussToGarage) obj;
-		if (discussToGarageId == null) {
-			if (other.discussToGarageId != null)
+		MsgToAutoMaker other = (MsgToAutoMaker) obj;
+		if (msgToAutoMakerId == null) {
+			if (other.msgToAutoMakerId != null)
 				return false;
-		} else if (!discussToGarageId.equals(other.discussToGarageId))
+		} else if (!msgToAutoMakerId.equals(other.msgToAutoMakerId))
 			return false;
 		return true;
 	}
@@ -130,19 +107,17 @@ public class DiscussToGarage implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{\"discussToGarageId\":\"");
-		builder.append(discussToGarageId);
+		builder.append("{\"msgToAutoMakerId\":\"");
+		builder.append(msgToAutoMakerId);
 		builder.append("\",\"autoMakerDetail\":");
 		builder.append(autoMakerDetail);
 		builder.append(",\"garageDetail\":");
 		builder.append(garageDetail);
-		builder.append(",\"stars\":\"");
-		builder.append(stars);
-		builder.append("\",\"discuss\":\"");
-		builder.append(discuss);
+		builder.append(",\"content\":\"");
+		builder.append(content);
 		builder.append("\"}");
 		return builder.toString();
 	}
 
-	
+
 }

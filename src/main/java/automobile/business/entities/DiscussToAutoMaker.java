@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import automobile.util.converter.JsonStringConverter;
 
 @Entity(name="DiscussToAutoMaker")
 public class DiscussToAutoMaker implements Serializable {
@@ -42,34 +41,107 @@ public class DiscussToAutoMaker implements Serializable {
     private String discuss = null;
 	
 	
+	public DiscussToAutoMaker(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, Integer stars,
+			String discuss) {
+		super();
+		this.autoMakerDetail = autoMakerDetail;
+		this.garageDetail = garageDetail;
+		this.stars = stars;
+		this.discuss = discuss;
+	}
 	
 	
+	public Integer getDiscussToAutoMakerId() {
+		return discussToAutoMakerId;
+	}
+
+
+	public void setDiscussToAutoMakerId(Integer discussToAutoMakerId) {
+		this.discussToAutoMakerId = discussToAutoMakerId;
+	}
+
+
+	public AutoMakerDetail getAutoMakerDetail() {
+		return autoMakerDetail;
+	}
+
+	public void setAutoMakerDetail(AutoMakerDetail autoMakerDetail) {
+		this.autoMakerDetail = autoMakerDetail;
+	}
+	
+	
+	public GarageDetail getGarageDetail() {
+		return garageDetail;
+	}
+
+
+	public void setGarageDetail(GarageDetail garageDetail) {
+		this.garageDetail = garageDetail;
+	}
+
+	public Integer getStars() {
+		return stars;
+	}
+
+
+	public void setStars(Integer stars) {
+		this.stars = stars;
+	}
+
+	public String getDiscuss() {
+		return discuss;
+	}
+
+
+	public void setDiscuss(String discuss) {
+		this.discuss = discuss;
+	}
+
+
 	@Override
-    public int hashCode() {
-        return discussToAutoMakerId;
-    }
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((discussToAutoMakerId == null) ? 0 : discussToAutoMakerId.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
-        final DiscussToAutoMaker other = (DiscussToAutoMaker) obj;
-        if (discussToAutoMakerId == null) {
-            if (other.discussToAutoMakerId != null) return false;
-        } else if (!discussToAutoMakerId.equals(other.discussToAutoMakerId))
-            return false;
-        return true;
-    }
 
-    @Override
-    public String toString() {
-        try {
-			return JsonStringConverter.getJSONString("discussToAutoMaker", this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        return "discussToAutoMaker : id = " + discussToAutoMakerId;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DiscussToAutoMaker other = (DiscussToAutoMaker) obj;
+		if (discussToAutoMakerId == null) {
+			if (other.discussToAutoMakerId != null)
+				return false;
+		} else if (!discussToAutoMakerId.equals(other.discussToAutoMakerId))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"discussToAutoMakerId\":\"");
+		builder.append(discussToAutoMakerId);
+		builder.append("\",\"autoMakerDetail\":");
+		builder.append(autoMakerDetail);
+		builder.append(",\"garageDetail\":");
+		builder.append(garageDetail);
+		builder.append(",\"stars\":\"");
+		builder.append(stars);
+		builder.append("\",\"discuss\":\"");
+		builder.append(discuss);
+		builder.append("\"}");
+		return builder.toString();
+	}
+	
+	
 
 }
