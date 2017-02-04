@@ -6,6 +6,10 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import automobile.util.converter.JsonStringConverter;
+
 /**
  * @author CrazeWong
  * 小分类，包括车型、水箱等。
@@ -20,14 +24,16 @@ public class SmallClass implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer smallClassId = null;
 	
-	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name="bigClassId")
+	@JsonIgnore
 	private BigClass bigClass = null;
 	
 	@Column(nullable = false, unique = true)
     private String name = null;
 	
-	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="smallClass", fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
 
 	
@@ -95,11 +101,12 @@ public class SmallClass implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("SmallClass [id=").append(smallClassId)
-        		.append(" name=").append(name)
-        		.append(" bigClass=").append(bigClass.getName()).append("]");
-        return builder.toString();
+        try {
+			return JsonStringConverter.getJSONString("smallClass", this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return "smallClass : id = " + smallClassId;
     }
 
 }

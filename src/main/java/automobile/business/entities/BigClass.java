@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import automobile.util.converter.JsonStringConverter;
+
 /**
  * @author CrazeWong
  * 大分类，包括车类（欧美、日系），单项件等。
@@ -80,9 +82,12 @@ public class BigClass implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("BigClass [id=").append(bigClassId).append(" name=").append(name).append("]");
-        return builder.toString();
+        try {
+			return JsonStringConverter.getJSONString("bigClass", this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return "bigClass : id = " + bigClassId;
     }
 
 }

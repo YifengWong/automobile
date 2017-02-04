@@ -69,6 +69,6 @@ public class AutomobileController {
 		List<AutosSmallClassesMiddle> list = autosSmallClassesMiddleService.findBySmallClass(small1);
 		
 		
-		response.getWriter().write(JsonStringConverter.getJSONString("autoMakerDetail", list.get(0).getAutoMakerDetail()));
+		response.getWriter().write(JsonStringConverter.getJSONString("allClass", bigClassService.findAll()));
 	}
 }
