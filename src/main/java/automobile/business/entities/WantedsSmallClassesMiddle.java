@@ -3,8 +3,6 @@ package automobile.business.entities;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,18 +12,13 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/**
- * @author CrazeWong
- *
- */
-@Entity(name="AutosSmallClassesMiddle")
-public class AutosSmallClassesMiddle implements Serializable {
+public class WantedsSmallClassesMiddle implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer autosSmallClassesMiddleId = null;
+    private Integer wantedsSmallClassesMiddleId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="smallClassId")
@@ -33,18 +26,26 @@ public class AutosSmallClassesMiddle implements Serializable {
 	private SmallClass smallClass = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JoinColumn(name="autoMakerDetailId")
-	private AutoMakerDetail autoMakerDetail = null;
-	
-	
-	public AutosSmallClassesMiddle() {
+	@JoinColumn(name="wantedId")
+	private Wanted wanted = null;
+
+	public WantedsSmallClassesMiddle() {
 		super();
 	}
-	
-	public AutosSmallClassesMiddle(final SmallClass smallClass, final AutoMakerDetail autoMakerDetail) {
+
+	public WantedsSmallClassesMiddle(Integer wantedsSmallClassesMiddleId, SmallClass smallClass, Wanted wanted) {
 		super();
+		this.wantedsSmallClassesMiddleId = wantedsSmallClassesMiddleId;
 		this.smallClass = smallClass;
-		this.autoMakerDetail = autoMakerDetail;
+		this.wanted = wanted;
+	}
+
+	public Integer getWantedsSmallClassesMiddleId() {
+		return wantedsSmallClassesMiddleId;
+	}
+
+	public void setWantedsSmallClassesMiddleId(Integer wantedsSmallClassesMiddleId) {
+		this.wantedsSmallClassesMiddleId = wantedsSmallClassesMiddleId;
 	}
 
 	public SmallClass getSmallClass() {
@@ -55,19 +56,19 @@ public class AutosSmallClassesMiddle implements Serializable {
 		this.smallClass = smallClass;
 	}
 
-	public AutoMakerDetail getAutoMakerDetail() {
-		return autoMakerDetail;
+	public Wanted getWanted() {
+		return wanted;
 	}
 
-	public void setAutoMakerDetail(AutoMakerDetail autoMakerDetail) {
-		this.autoMakerDetail = autoMakerDetail;
+	public void setWanted(Wanted wanted) {
+		this.wanted = wanted;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((autosSmallClassesMiddleId == null) ? 0 : autosSmallClassesMiddleId.hashCode());
+		result = prime * result + ((wantedsSmallClassesMiddleId == null) ? 0 : wantedsSmallClassesMiddleId.hashCode());
 		return result;
 	}
 
@@ -79,11 +80,11 @@ public class AutosSmallClassesMiddle implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		AutosSmallClassesMiddle other = (AutosSmallClassesMiddle) obj;
-		if (autosSmallClassesMiddleId == null) {
-			if (other.autosSmallClassesMiddleId != null)
+		WantedsSmallClassesMiddle other = (WantedsSmallClassesMiddle) obj;
+		if (wantedsSmallClassesMiddleId == null) {
+			if (other.wantedsSmallClassesMiddleId != null)
 				return false;
-		} else if (!autosSmallClassesMiddleId.equals(other.autosSmallClassesMiddleId))
+		} else if (!wantedsSmallClassesMiddleId.equals(other.wantedsSmallClassesMiddleId))
 			return false;
 		return true;
 	}
@@ -91,15 +92,12 @@ public class AutosSmallClassesMiddle implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{\"autosSmallClassesMiddleId\":\"");
-		builder.append(autosSmallClassesMiddleId);
-		builder.append("\",\"smallClass\":");
+		builder.append("{\"wantedsSmallClassesMiddleId\":\"");
+		builder.append(wantedsSmallClassesMiddleId);
+		builder.append("\",\"smallClass\":\"");
 		builder.append(smallClass);
-		builder.append("}");
+		builder.append("\"}");
 		return builder.toString();
 	}
-	
-	
 
-	
 }

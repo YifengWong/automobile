@@ -33,6 +33,12 @@ public class SmallClass implements Serializable {
 	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
 
+	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	private Set<FavorablesSmallClassesMiddle> favorablesSmallClassesMiddleSet = new HashSet<FavorablesSmallClassesMiddle>();
+
+	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	private Set<WantedsSmallClassesMiddle> wantedsSmallClassesMiddleSet = new HashSet<WantedsSmallClassesMiddle>();
+
 	
 	public SmallClass() {
 		super();
@@ -75,6 +81,24 @@ public class SmallClass implements Serializable {
 
 	public void setAutosSmallClassesMiddleSet(Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet) {
 		this.autosSmallClassesMiddleSet = autosSmallClassesMiddleSet;
+	}
+	
+
+	public Set<FavorablesSmallClassesMiddle> getFavorablesSmallClassesMiddleSet() {
+		return favorablesSmallClassesMiddleSet;
+	}
+
+	public void setFavorablesSmallClassesMiddleSet(Set<FavorablesSmallClassesMiddle> favorablesSmallClassesMiddleSet) {
+		this.favorablesSmallClassesMiddleSet = favorablesSmallClassesMiddleSet;
+	}
+	
+	
+	public Set<WantedsSmallClassesMiddle> getWantedsSmallClassesMiddleSet() {
+		return wantedsSmallClassesMiddleSet;
+	}
+
+	public void setWantedsSmallClassesMiddleSet(Set<WantedsSmallClassesMiddle> wantedsSmallClassesMiddleSet) {
+		this.wantedsSmallClassesMiddleSet = wantedsSmallClassesMiddleSet;
 	}
 	
 

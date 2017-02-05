@@ -74,6 +74,11 @@ public class GarageDetail implements Serializable {
 	@JsonIgnore
 	private Set<MsgToGarage> msgToGarageSet = new HashSet<MsgToGarage>();
 	
+	// 单向一对多，收藏
+	@OneToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
+	private Set<AutoMakerDetail> autoMakerDetailSet = new HashSet<AutoMakerDetail>();
+	
 	
 	public GarageDetail() {
 		super();
@@ -144,6 +149,16 @@ public class GarageDetail implements Serializable {
 
 	public Set<MsgToGarage> getMsgToGarageSet() {
 		return msgToGarageSet;
+	}
+	
+	
+	public Set<AutoMakerDetail> getAutoMakerDetailSet() {
+		return autoMakerDetailSet;
+	}
+
+
+	public void setAutoMakerDetailSet(Set<AutoMakerDetail> autoMakerDetailSet) {
+		this.autoMakerDetailSet = autoMakerDetailSet;
 	}
 
 
@@ -298,9 +313,11 @@ public class GarageDetail implements Serializable {
 		builder.append(address);
 		builder.append("\",\"likes\":\"");
 		builder.append(likes);
+		builder.append("\",\"autoMakerDetailSet\":\"");
+		builder.append(autoMakerDetailSet);
 		builder.append("\"}");
 		return builder.toString();
 	}
-	
+
 	
 }
