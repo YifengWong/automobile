@@ -27,9 +27,16 @@ import automobile.business.entities.util.JsonManager;
 import automobile.business.services.AutoMakerDetailService;
 import automobile.business.services.AutosSmallClassesMiddleService;
 import automobile.business.services.BigClassService;
+import automobile.business.services.DiscussToAutoMakerService;
+import automobile.business.services.DiscussToGarageService;
+import automobile.business.services.FavorableService;
+import automobile.business.services.FavorablesSmallClassesMiddleService;
 import automobile.business.services.GarageDetailService;
+import automobile.business.services.MsgToAutoMakerService;
 import automobile.business.services.MsgToGarageService;
 import automobile.business.services.SmallClassService;
+import automobile.business.services.WantedService;
+import automobile.business.services.WantedsSmallClassesMiddleService;
 
 @Controller
 public class AutomobileController {
@@ -41,6 +48,14 @@ public class AutomobileController {
 	private AutosSmallClassesMiddleService autosSmallClassesMiddleService = ctx.getBean(AutosSmallClassesMiddleService.class);
 	private MsgToGarageService msgToGarageService = ctx.getBean(MsgToGarageService.class);
 	private GarageDetailService garageDetailService = ctx.getBean(GarageDetailService.class);
+	
+	private DiscussToAutoMakerService discussToAutoMakerService = ctx.getBean(DiscussToAutoMakerService.class);
+	private DiscussToGarageService discussToGarageService = ctx.getBean(DiscussToGarageService.class);
+	private FavorableService favorableService = ctx.getBean(FavorableService.class);
+	private FavorablesSmallClassesMiddleService favorablesSmallClassesMiddleService = ctx.getBean(FavorablesSmallClassesMiddleService.class);
+	private MsgToAutoMakerService msgToAutoMakerService = ctx.getBean(MsgToAutoMakerService.class);
+	private WantedService wantedService = ctx.getBean(WantedService.class);
+	private WantedsSmallClassesMiddleService wantedsSmallClassesMiddleService = ctx.getBean(WantedsSmallClassesMiddleService.class);
 	
 	
 	@RequestMapping("/testJson")
@@ -57,7 +72,7 @@ public class AutomobileController {
 	
 	@RequestMapping("/writeDB")
 	public void writeDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BigClass big1 = new BigClass("danxiang ");
+		BigClass big1 = new BigClass("DanXiang");
 		bigClassService.create(big1);
 		
 		SmallClass small1 = new SmallClass(big1, "shuixiang");
