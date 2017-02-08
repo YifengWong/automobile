@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import automobile.business.entities.FavorablesSmallClassesMiddle;
 import automobile.business.entities.repositories.FavorablesSmallClassesMiddleDao;
 
-@Service
-@Transactional
 public class FavorablesSmallClassesMiddleService {
 
-    @Autowired
     private FavorablesSmallClassesMiddleDao dao;
 
     public FavorablesSmallClassesMiddleService() {

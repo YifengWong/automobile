@@ -2,6 +2,7 @@ package automobile.business.entities.repositories;
 
 import java.util.List;
 
+import automobile.business.entities.GarageDetail;
 import automobile.business.entities.MsgToGarage;
 
 public interface MsgToGarageDao {
@@ -17,5 +18,8 @@ public interface MsgToGarageDao {
     void delete(MsgToGarage entity);
 
     void deleteById(Integer entityId);
+    
+    // API
+    List<MsgToGarage> findMsgsToGarage(GarageDetail garageDetail);
 
 }

@@ -9,28 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 import automobile.business.entities.GarageDetail;
 import automobile.business.entities.repositories.GarageDetailDao;
 
-@Service
-@Transactional
+
 public class GarageDetailService {
 
-    @Autowired
-    private GarageDetailDao dao;
+    private GarageDetailDao garageDetailDao;
 
     public GarageDetailService() {
         super();
     }
 
     // API
-    public void create(final GarageDetail entity) {
-        dao.create(entity);
+    public void createGarageDetail(final GarageDetail garageDetail) {
+    	garageDetailDao.create(garageDetail);
     }
-
-    public GarageDetail findById(final Integer id) {
-        return dao.findOne(id);
-    }
-
-    public List<GarageDetail> findAll() {
-        return dao.findAll();
+    
+    public GarageDetail findGarageDetailById(final Integer id) {
+    	return garageDetailDao.findOne(id);
     }
 
 }

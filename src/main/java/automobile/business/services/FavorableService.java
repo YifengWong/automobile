@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import automobile.business.entities.Favorable;
 import automobile.business.entities.repositories.FavorableDao;
 
-@Service
-@Transactional
 public class FavorableService {
 
-    @Autowired
     private FavorableDao dao;
 
     public FavorableService() {

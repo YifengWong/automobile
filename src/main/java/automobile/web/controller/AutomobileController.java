@@ -86,6 +86,7 @@ public class AutomobileController {
 	
 		AutoMakerDetail auto1 = new AutoMakerDetail("qipei 1");
 		autoMakerDetailService.create(auto1);
+		response.getWriter().write(JsonManager.getJSONString("id", auto1.getAutoMakerDetailId()) + "\n");
 		
 		autosSmallClassesMiddleService.create(new AutosSmallClassesMiddle(small1, auto1));
 		autosSmallClassesMiddleService.create(new AutosSmallClassesMiddle(small2, auto1));

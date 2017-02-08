@@ -10,11 +10,8 @@ import automobile.business.entities.BigClass;
 import automobile.business.entities.SmallClass;
 import automobile.business.entities.repositories.SmallClassDao;
 
-@Service
-@Transactional
 public class SmallClassService {
 
-    @Autowired
     private SmallClassDao dao;
 
     public SmallClassService() {

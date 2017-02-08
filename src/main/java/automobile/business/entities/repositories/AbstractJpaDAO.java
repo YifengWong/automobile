@@ -12,7 +12,7 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
 
     @PersistenceContext
     private EntityManager entityManager;
-        
+    
     protected EntityManager  getEntityManager() {
     	return this.entityManager;
     }
@@ -36,6 +36,7 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
 
     public T update(final T entity) {
         return entityManager.merge(entity);
+        
     }
 
     public void delete(final T entity) {

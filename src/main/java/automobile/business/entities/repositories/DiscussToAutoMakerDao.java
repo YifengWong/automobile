@@ -2,6 +2,7 @@ package automobile.business.entities.repositories;
 
 import java.util.List;
 
+import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.DiscussToAutoMaker;
 
 public interface DiscussToAutoMakerDao {
@@ -16,5 +17,8 @@ public interface DiscussToAutoMakerDao {
     void delete(DiscussToAutoMaker entity);
 
     void deleteById(Integer entityId);
+    
+    // API
+    List<DiscussToAutoMaker> findDiscussesToAutoMaker(AutoMakerDetail autoMakerDetail);
 
 }

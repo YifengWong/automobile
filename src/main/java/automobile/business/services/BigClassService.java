@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import automobile.business.entities.BigClass;
 import automobile.business.entities.repositories.BigClassDao;
 
-@Service
-@Transactional
 public class BigClassService {
 
-    @Autowired
     private BigClassDao dao;
 
     public BigClassService() {
