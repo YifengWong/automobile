@@ -20,6 +20,6 @@ public interface SmallClassDao {
     void deleteById(Integer entityId);
     
     // API
-    public List<SmallClass> findByBigClass(final BigClass bigClass);
+    public List<SmallClass> findAllByBigClass(final BigClass bigClass);
 
 }

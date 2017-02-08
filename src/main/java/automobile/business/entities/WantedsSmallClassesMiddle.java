@@ -35,9 +35,8 @@ public class WantedsSmallClassesMiddle implements Serializable {
 		super();
 	}
 
-	public WantedsSmallClassesMiddle(Integer wantedsSmallClassesMiddleId, SmallClass smallClass, Wanted wanted) {
+	public WantedsSmallClassesMiddle(SmallClass smallClass, Wanted wanted) {
 		super();
-		this.wantedsSmallClassesMiddleId = wantedsSmallClassesMiddleId;
 		this.smallClass = smallClass;
 		this.wanted = wanted;
 	}

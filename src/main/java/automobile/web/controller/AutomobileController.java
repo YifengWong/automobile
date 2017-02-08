@@ -17,93 +17,66 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import automobile.business.entities.AutoMakerDetail;
-import automobile.business.entities.AutosSmallClassesMiddle;
 import automobile.business.entities.BigClass;
 import automobile.business.entities.GarageDetail;
 import automobile.business.entities.MsgToGarage;
 import automobile.business.entities.SmallClass;
 import automobile.business.entities.Test;
-import automobile.business.entities.util.JsonManager;
-import automobile.business.services.AutoMakerDetailService;
-import automobile.business.services.AutosSmallClassesMiddleService;
-import automobile.business.services.BigClassService;
-import automobile.business.services.DiscussToAutoMakerService;
-import automobile.business.services.DiscussToGarageService;
+import automobile.business.entities.util.JsonObject;
+import automobile.business.services.ClassService;
+import automobile.business.services.DiscussService;
 import automobile.business.services.FavorableService;
-import automobile.business.services.FavorablesSmallClassesMiddleService;
-import automobile.business.services.GarageDetailService;
-import automobile.business.services.MsgToAutoMakerService;
-import automobile.business.services.MsgToGarageService;
-import automobile.business.services.SmallClassService;
+import automobile.business.services.MsgService;
+import automobile.business.services.UserDetailService;
 import automobile.business.services.WantedService;
-import automobile.business.services.WantedsSmallClassesMiddleService;
 
 @Controller
 public class AutomobileController {
 	
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
-	private BigClassService bigClassService = ctx.getBean(BigClassService.class);
-	private SmallClassService smallClassService = ctx.getBean(SmallClassService.class);
-	private AutoMakerDetailService autoMakerDetailService = ctx.getBean(AutoMakerDetailService.class); 
-	private AutosSmallClassesMiddleService autosSmallClassesMiddleService = ctx.getBean(AutosSmallClassesMiddleService.class);
-	private MsgToGarageService msgToGarageService = ctx.getBean(MsgToGarageService.class);
-	private GarageDetailService garageDetailService = ctx.getBean(GarageDetailService.class);
+
 	
-	private DiscussToAutoMakerService discussToAutoMakerService = ctx.getBean(DiscussToAutoMakerService.class);
-	private DiscussToGarageService discussToGarageService = ctx.getBean(DiscussToGarageService.class);
+	private ClassService classService = ctx.getBean(ClassService.class);
+	private UserDetailService userDetailService = ctx.getBean(UserDetailService.class); 
+	
+	private DiscussService discussService = ctx.getBean(DiscussService.class);
+	private MsgService msgService = ctx.getBean(MsgService.class);
+	
 	private FavorableService favorableService = ctx.getBean(FavorableService.class);
-	private FavorablesSmallClassesMiddleService favorablesSmallClassesMiddleService = ctx.getBean(FavorablesSmallClassesMiddleService.class);
-	private MsgToAutoMakerService msgToAutoMakerService = ctx.getBean(MsgToAutoMakerService.class);
 	private WantedService wantedService = ctx.getBean(WantedService.class);
-	private WantedsSmallClassesMiddleService wantedsSmallClassesMiddleService = ctx.getBean(WantedsSmallClassesMiddleService.class);
 	
 	
 	@RequestMapping("/testJson")
 	public void testJson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Test t = new Test("1", "Name");
-		try {
-			response.getWriter().write(JsonManager.getJSONString("test", t));
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 	
 	@RequestMapping("/writeDB")
 	public void writeDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BigClass big1 = new BigClass("DanXiang");
-		bigClassService.create(big1);
+		BigClass big1 = new BigClass("danXiang");
+		classService.createBigClass(big1);
 		
 		SmallClass small1 = new SmallClass(big1, "shuixiang");
 		SmallClass small2 = new SmallClass(big1, "lihaide");
-		smallClassService.create(small1);
-		smallClassService.create(small2);
+		classService.createSmallClass(small1);
+		classService.createSmallClass(small2);
 		
 		Set<SmallClass> set1 = new HashSet<SmallClass>();
 		set1.add(small1);
 		set1.add(small2);
 	
 		AutoMakerDetail auto1 = new AutoMakerDetail("qipei 1");
-		autoMakerDetailService.create(auto1);
-		response.getWriter().write(JsonManager.getJSONString("id", auto1.getAutoMakerDetailId()) + "\n");
-		
-		autosSmallClassesMiddleService.create(new AutosSmallClassesMiddle(small1, auto1));
-		autosSmallClassesMiddleService.create(new AutosSmallClassesMiddle(small2, auto1));
-		
-		List<AutosSmallClassesMiddle> list = autosSmallClassesMiddleService.findBySmallClass(small1);
-		
+		userDetailService.createAutoMakerDetail(auto1, set1);
+
 		
 		GarageDetail gd1 = new GarageDetail("garage1");
-		garageDetailService.create(gd1);
+		userDetailService.createGarageDetail(gd1);
 		
 		MsgToGarage msg1 = new MsgToGarage(auto1, gd1, "contengmsg");
-		msgToGarageService.create(msg1);
+		msgService.createMsgToGarage(msg1);
 		
 		
-		response.getWriter().write(JsonManager.getJSONString("smallClass", smallClassService.findAll()) + "\n");
-		response.getWriter().write(JsonManager.getJSONString("allClasses", bigClassService.findAll()) + "\n");
-		response.getWriter().write(JsonManager.getJSONString("allClasses", autoMakerDetailService.findAll()) + "\n");
-		response.getWriter().write(JsonManager.getJSONString("detail1", autoMakerDetailService.findById(4)));
+		response.getWriter().write(new JsonObject("classes", classService.findAllBigClasses()).getJsonString() + "\n");
 	}
 }

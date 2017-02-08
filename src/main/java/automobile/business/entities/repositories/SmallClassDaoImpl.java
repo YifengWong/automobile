@@ -18,7 +18,7 @@ public class SmallClassDaoImpl extends AbstractJpaDAO<SmallClass> implements Sma
 
     // API
     @SuppressWarnings("unchecked")
-	public List<SmallClass> findByBigClass(final BigClass bigClass) {
+	public List<SmallClass> findAllByBigClass(final BigClass bigClass) {
     	return this.getEntityManager()
     			.createQuery("from SmallClass as obj where obj.bigClass=:bc")
     			.setParameter("bc", bigClass).getResultList();
