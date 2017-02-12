@@ -20,8 +20,11 @@ public class GarageDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer garageDetailId = null;
+    private String garageDetailId = null;
+	
+	@Column(nullable = false)
+	@JsonIgnore
+    private String password = null;	
 	
 	@Column(nullable = false)
     private String name = null;	
@@ -85,9 +88,11 @@ public class GarageDetail implements Serializable {
 	}
 	
 	
-	public GarageDetail(String name, String managerName, String phone, String qq, String wechat, String province,
+	public GarageDetail(String garageDetailId, String password, String name, String managerName, String phone, String qq, String wechat, String province,
 			String city, String address, Integer likes) {
 		super();
+		this.garageDetailId = garageDetailId;
+		this.password = password;
 		this.name = name;
 		this.managerName = managerName;
 		this.phone = phone;
@@ -101,8 +106,10 @@ public class GarageDetail implements Serializable {
 
 
 	// TODO delete this
-	public GarageDetail(final String name) {
+	public GarageDetail(String garageDetailId, String password, final String name) {
 		super();
+		this.garageDetailId = garageDetailId;
+		this.password = password;
 		this.name = name;
 		this.managerName = "1";
 		this.phone = "1";
@@ -172,13 +179,22 @@ public class GarageDetail implements Serializable {
 	}
 
 
-	public Integer getGarageDetailId() {
+	public String getGarageDetailId() {
 		return garageDetailId;
 	}
 
 
-	public void setGarageDetailId(Integer garageDetailId) {
+	public void setGarageDetailId(String garageDetailId) {
 		this.garageDetailId = garageDetailId;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 

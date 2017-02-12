@@ -11,7 +11,7 @@ import automobile.business.entities.GarageDetail;
  * 
  * key¹ØÏµ
  * bigClass - smallClasses
- * smallClass - autosmiddles, wantedsmiddle, favorablesmiddle
+ * smallClass - 
  * autosmiddle - autoMaker
  * autoMaker - 
  * garage - 

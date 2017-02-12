@@ -31,12 +31,15 @@ public class SmallClass implements Serializable {
     private String name = null;
 	
 	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
 
 	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<FavorablesSmallClassesMiddle> favorablesSmallClassesMiddleSet = new HashSet<FavorablesSmallClassesMiddle>();
 
 	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<WantedsSmallClassesMiddle> wantedsSmallClassesMiddleSet = new HashSet<WantedsSmallClassesMiddle>();
 
 	

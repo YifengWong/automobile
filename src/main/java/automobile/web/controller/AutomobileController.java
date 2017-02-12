@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.BigClass;
+import automobile.business.entities.Favorable;
 import automobile.business.entities.GarageDetail;
 import automobile.business.entities.MsgToGarage;
 import automobile.business.entities.SmallClass;
@@ -65,18 +66,61 @@ public class AutomobileController {
 		Set<SmallClass> set1 = new HashSet<SmallClass>();
 		set1.add(small1);
 		set1.add(small2);
-	
-		AutoMakerDetail auto1 = new AutoMakerDetail("qipei 1");
+
+		AutoMakerDetail auto1 = new AutoMakerDetail("12345678910", "awerqwerqwe", "qipei 1");
 		userDetailService.createAutoMakerDetail(auto1, set1);
 
 		
-		GarageDetail gd1 = new GarageDetail("garage1");
+		GarageDetail gd1 = new GarageDetail("12345645610", "IIAHSFDJK", "garage1");
 		userDetailService.createGarageDetail(gd1);
 		
 		MsgToGarage msg1 = new MsgToGarage(auto1, gd1, "contengmsg");
 		msgService.createMsgToGarage(msg1);
 		
-		
-		response.getWriter().write(new JsonObject("classes", classService.findAllBigClasses()).getJsonString() + "\n");
+		favorableService.createFavorable(new Favorable(auto1, "12点", "16点", "优惠优惠"), set1);
+
 	}
+	
+	@RequestMapping("/getClasses")
+	public void getClasses(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.getWriter().write(new JsonObject("classes", classService.findAllBigClasses()).getJsonString());
+	}
+	
+	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
+	public void newClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String bigClassName = request.getParameter("bigClassName");
+		String smallClassName = request.getParameter("smallClassName");
+		// TODO
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public void register(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String certCode = request.getParameter("certCode");
+		String userType = request.getParameter("userType");
+		
+		// TODO check certCode
+		
+		
+		
+		if (userType.equals("autoMaker")) {
+			AutoMakerDetail user = new AutoMakerDetail(id, password, "");
+			userDetailService.createAutoMakerDetail(user, null);
+		} else if (userType.equals("garage")) {
+			GarageDetail user = new GarageDetail(id, password, "");
+			userDetailService.createGarageDetail(user);
+		} else {
+			// TODO return failed
+		}
+		
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public void login(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String userType = request.getParameter("userType");
+	}
+	
 }

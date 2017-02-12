@@ -20,12 +20,14 @@ public class AutoMakerDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer autoMakerDetailId = null;
+    private String autoMakerDetailId = null;
+	
+	@Column(nullable = false)
+	@JsonIgnore
+    private String password = null;
 	
 	@Column(nullable = false)
     private String name = null;
-	
 	
 	@OneToMany(mappedBy="autoMakerDetail", fetch = FetchType.EAGER)
 	@JsonIgnore
@@ -85,9 +87,11 @@ public class AutoMakerDetail implements Serializable {
 	}
 	
 	
-	public AutoMakerDetail(String name, String managerName, String phone, String qq, String wechat, String province,
+	public AutoMakerDetail(String autoMakerDetailId, String password, String name, String managerName, String phone, String qq, String wechat, String province,
 			String city, String address) {
 		super();
+		this.autoMakerDetailId = autoMakerDetailId;
+		this.password = password;
 		this.name = name;
 		this.managerName = managerName;
 		this.phone = phone;
@@ -102,8 +106,10 @@ public class AutoMakerDetail implements Serializable {
 
 
 	// TODO delte this
-	public AutoMakerDetail(final String name) {
+	public AutoMakerDetail(String autoMakerDetailId, String password, final String name) {
 		super();
+		this.autoMakerDetailId = autoMakerDetailId;
+		this.password = password;
 		this.name = name;
 		this.managerName = "1";
 		this.phone = "1";
@@ -115,13 +121,24 @@ public class AutoMakerDetail implements Serializable {
 		this.likes = 0;
 	}
 	
-	public Integer getAutoMakerDetailId() {
+	public String getAutoMakerDetailId() {
 		return autoMakerDetailId;
 	}
 
-	public void setAutoMakerDetailId(Integer autoMakerDetailId) {
+	public void setAutoMakerDetailId(String autoMakerDetailId) {
 		this.autoMakerDetailId = autoMakerDetailId;
 	}
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	public String getName() {
 		return name;
