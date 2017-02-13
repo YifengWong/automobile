@@ -14,5 +14,10 @@ public class BigClassDaoImpl extends AbstractJpaDAO<BigClass> implements BigClas
     }
 
     // API
+	public BigClass findOne(String name) {
+		return (BigClass) this.getEntityManager()
+    			.createQuery("from BigClass as obj where obj.name=:n")
+    			.setParameter("n", name).getSingleResult();
+	}
 
 }

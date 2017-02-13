@@ -21,5 +21,7 @@ public interface SmallClassDao {
     
     // API
     public List<SmallClass> findAllByBigClass(final BigClass bigClass);
+    
+    SmallClass findOne(String name);
 
 }

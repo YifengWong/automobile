@@ -1,5 +1,7 @@
 package automobile.business.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,23 @@ public class UserDetailService {
     
     public GarageDetail findGarageDetailById(final Integer id) {
     	return garageDetailDao.findOne(id);
+    }
+    
+    public AutoMakerDetail findAutoMakerDetailByUserName(final String username) {
+    	return autoMakerDetailDao.findOne(username);
+    }
+    
+    public GarageDetail findGarageDetailByUserName(final String username) {
+    	return garageDetailDao.findOne(username);
+    }
+    
+    public List<AutoMakerDetail> findAllAutoMakerDetailBySmallClass(SmallClass smallClass) {
+    	List<AutosSmallClassesMiddle> middles = autosSmallClassesMiddleDao.findBySmallClass(smallClass);
+    	List<AutoMakerDetail> autos = new ArrayList<AutoMakerDetail>();
+    	for (AutosSmallClassesMiddle m : middles) {
+    		autos.add(m.getAutoMakerDetail());
+    	}
+    	return autos;
     }
 
     

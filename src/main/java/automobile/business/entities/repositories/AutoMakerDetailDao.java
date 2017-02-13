@@ -17,5 +17,8 @@ public interface AutoMakerDetailDao {
     void delete(AutoMakerDetail entity);
 
     void deleteById(Integer entityId);
+    
+    // API
+    AutoMakerDetail findOne(String username);
 
 }

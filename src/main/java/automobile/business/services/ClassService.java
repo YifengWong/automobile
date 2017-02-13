@@ -41,5 +41,21 @@ public class ClassService {
 	public List<SmallClass> findAllSmallClassesFrom(final BigClass bigClass) {
 		return smallClassDao.findAllByBigClass(bigClass);
 	}
+	
+	public BigClass findBigClassById(Integer id) {
+		return bigClassDao.findOne(id);
+	}
+	
+	public BigClass findBigClassByName(String name) {
+		return bigClassDao.findOne(name);
+	}
+	
+	public SmallClass findSmallClasById(Integer id) {
+		return smallClassDao.findOne(id);
+	}
+	
+	public SmallClass findSmallClassByName(String name) {
+		return smallClassDao.findOne(name);
+	}
 
 }

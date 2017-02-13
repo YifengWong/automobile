@@ -1,4 +1,4 @@
-package automobile.business.entities.util;
+package automobile.util;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,29 +37,40 @@ import automobile.business.entities.GarageDetail;
  * favorable - autoMaker, favorablesmiddle
 
  */
-public class JsonObject {
+public class ResultObject {
 	
-	@JsonIgnore
-	private String name = null;
+	public final static String SUCC = "success";
+	
+	public final static String FAIL = "failed";
+	
+	private String result = null;
+	
+	private String state = null;
 	
 	private Object object = null;
 	
 	
-	public JsonObject(final String name, final Object object) {
-		this.name = name;
+	public ResultObject(final String result, final String state, final Object object) {
+		this.result = result;
+		this.state = state;
 		this.object = object;
 	}
-
-
-	public String getName() {
-		return name;
+	
+	public String getResult() {
+		return result;
 	}
 
-
-	public void setName(String name) {
-		this.name = name;
+	public void setResult(String result) {
+		this.result = result;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 	public Object getObject() {
 		return object;
@@ -82,19 +93,20 @@ public class JsonObject {
 	
 	@JsonIgnore
 	public String getKeyJsonString() throws Exception {
-		return new ObjectMapper().writeValueAsString(this).replaceFirst("object", name);
+		return new ObjectMapper().writeValueAsString(this);
 	}
 	
 	@JsonIgnore
 	public String getFullJsonString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{\"");
-		builder.append(name);
-		builder.append("\":\"");
+		builder.append("{\"result\":\"");
+		builder.append(result);
+		builder.append("\",\"state\":\"");
+		builder.append(state);
+		builder.append("\",\"object\":\"");
 		builder.append(object.toString());
 		builder.append("\"}");
 		return builder.toString();
 	}
-
 
 }

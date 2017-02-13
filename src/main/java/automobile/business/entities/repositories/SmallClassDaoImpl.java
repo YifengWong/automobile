@@ -24,4 +24,10 @@ public class SmallClassDaoImpl extends AbstractJpaDAO<SmallClass> implements Sma
     			.setParameter("bc", bigClass).getResultList();
     }
 
+	public SmallClass findOne(String name) {
+		return (SmallClass) this.getEntityManager()
+    			.createQuery("from SmallClass as obj where obj.name=:n")
+    			.setParameter("n", name).getSingleResult();
+	}
+
 }

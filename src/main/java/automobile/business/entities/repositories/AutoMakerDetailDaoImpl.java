@@ -14,5 +14,9 @@ public class AutoMakerDetailDaoImpl extends AbstractJpaDAO<AutoMakerDetail> impl
     }
 
     // API
-
+	public AutoMakerDetail findOne(String username) {
+		return (AutoMakerDetail) this.getEntityManager()
+    			.createQuery("from AutoMakerDetail as obj where obj.username=:un")
+    			.setParameter("un", username).getSingleResult();
+	}
 }

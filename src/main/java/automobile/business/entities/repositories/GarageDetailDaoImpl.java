@@ -14,5 +14,10 @@ public class GarageDetailDaoImpl extends AbstractJpaDAO<GarageDetail> implements
     }
 
     // API
+	public GarageDetail findOne(String username) {
+		return (GarageDetail) this.getEntityManager()
+    			.createQuery("from GarageDetail as obj where obj.username=:un")
+    			.setParameter("un", username).getSingleResult();
+	}
 
 }

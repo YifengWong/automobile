@@ -15,12 +15,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity(name="GarageDetail")
-public class GarageDetail implements Serializable {
+public class GarageDetail extends AbstractUserDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    private String garageDetailId = null;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer garageDetailId = null;
+	
+	@Column(nullable = false, unique = true)
+	private String username = null;
 	
 	@Column(nullable = false)
 	@JsonIgnore
@@ -88,10 +92,10 @@ public class GarageDetail implements Serializable {
 	}
 	
 	
-	public GarageDetail(String garageDetailId, String password, String name, String managerName, String phone, String qq, String wechat, String province,
+	public GarageDetail(String username, String password, String name, String managerName, String phone, String qq, String wechat, String province,
 			String city, String address, Integer likes) {
 		super();
-		this.garageDetailId = garageDetailId;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.managerName = managerName;
@@ -106,9 +110,9 @@ public class GarageDetail implements Serializable {
 
 
 	// TODO delete this
-	public GarageDetail(String garageDetailId, String password, final String name) {
+	public GarageDetail(String username, String password, final String name) {
 		super();
-		this.garageDetailId = garageDetailId;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.managerName = "1";
@@ -179,12 +183,22 @@ public class GarageDetail implements Serializable {
 	}
 
 
-	public String getGarageDetailId() {
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public Integer getGarageDetailId() {
 		return garageDetailId;
 	}
 
 
-	public void setGarageDetailId(String garageDetailId) {
+	public void setGarageDetailId(Integer garageDetailId) {
 		this.garageDetailId = garageDetailId;
 	}
 	

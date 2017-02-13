@@ -17,5 +17,8 @@ public interface GarageDetailDao {
     void delete(GarageDetail entity);
 
     void deleteById(Integer entityId);
+    
+    // API
+    GarageDetail findOne(String username);
 
 }

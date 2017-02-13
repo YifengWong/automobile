@@ -36,18 +36,21 @@ public class DiscussToAutoMaker implements Serializable {
 	@Column(nullable = false)
     private Integer stars = null;
 	
+	@Column(nullable = false)
+	private String time = null;	
 	
 	@Column(nullable = false)
     private String discuss = null;
 	
 	
-	public DiscussToAutoMaker(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, Integer stars,
+	public DiscussToAutoMaker(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, String time, Integer stars,
 			String discuss) {
 		super();
 		this.autoMakerDetail = autoMakerDetail;
 		this.garageDetail = garageDetail;
 		this.stars = stars;
 		this.discuss = discuss;
+		this.time = time;
 	}
 	
 	
@@ -77,6 +80,14 @@ public class DiscussToAutoMaker implements Serializable {
 
 	public void setGarageDetail(GarageDetail garageDetail) {
 		this.garageDetail = garageDetail;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	public Integer getStars() {

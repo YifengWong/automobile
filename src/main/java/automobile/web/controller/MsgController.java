@@ -1,9 +1,7 @@
 package automobile.web.controller;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,48 +12,53 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import automobile.business.entities.AbstractUserDetail;
 import automobile.business.entities.AutoMakerDetail;
-import automobile.business.entities.BigClass;
-import automobile.business.entities.Favorable;
 import automobile.business.entities.GarageDetail;
+import automobile.business.entities.MsgToAutoMaker;
 import automobile.business.entities.MsgToGarage;
-import automobile.business.entities.SmallClass;
 import automobile.business.entities.Test;
 import automobile.business.services.ClassService;
 import automobile.business.services.DiscussService;
-import automobile.business.services.FavorableService;
 import automobile.business.services.MsgService;
 import automobile.business.services.UserDetailService;
-import automobile.business.services.WantedService;
 import automobile.util.ResultObject;
 
 @Controller
-public class AutomobileController {
-	
+public class MsgController {
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
-	
 	private ClassService classService = ctx.getBean(ClassService.class);
 	private UserDetailService userDetailService = ctx.getBean(UserDetailService.class); 
 	
 	private DiscussService discussService = ctx.getBean(DiscussService.class);
 	private MsgService msgService = ctx.getBean(MsgService.class);
 	
-	private FavorableService favorableService = ctx.getBean(FavorableService.class);
-	private WantedService wantedService = ctx.getBean(WantedService.class);
-	
-	
+	@RequestMapping(value = "/getMsgs", method = RequestMethod.POST)
+	public void getMsgs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String username = request.getParameter("username");
+		String usertype = request.getParameter("usertype");
 
-	
-	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
-	public void newClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String bigClassName = request.getParameter("bigClassName");
-		String smallClassName = request.getParameter("smallClassName");
-		// TODO
+		AbstractUserDetail user = null;
+		
+		if (usertype.equals("autoMaker")) {
+			user = userDetailService.findAutoMakerDetailByUserName(username);
+		} else if (usertype.equals("garage")) {
+			user = userDetailService.findGarageDetailByUserName(username);
+		}
+		
+		if (user != null) {
+			if (user instanceof AutoMakerDetail) {
+				List<MsgToAutoMaker> msgs = msgService.findAllMsgsToAutoMaker((AutoMakerDetail) user);
+				response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());
+				return;
+			} else if (user instanceof GarageDetail) {
+				List<MsgToGarage> msgs = msgService.findAllMsgsToGarage((GarageDetail) user);
+				response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());	
+				return;
+			}
+		}
+		
+		response.getWriter().write(new ResultObject(ResultObject.FAIL, "no user", null).getJsonString());
 	}
-	
-
-	
 }

@@ -11,16 +11,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author CrazeWong
- * ∆˚≈‰…Ã–≈œ¢
  *
  */
 @Entity(name="AutoMakerDetail")
-public class AutoMakerDetail implements Serializable {
+public class AutoMakerDetail extends AbstractUserDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    private String autoMakerDetailId = null;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer autoMakerDetailId = null;
+	
+	@Column(nullable = false, unique = true)
+	private String username = null;
 	
 	@Column(nullable = false)
 	@JsonIgnore
@@ -87,10 +90,10 @@ public class AutoMakerDetail implements Serializable {
 	}
 	
 	
-	public AutoMakerDetail(String autoMakerDetailId, String password, String name, String managerName, String phone, String qq, String wechat, String province,
+	public AutoMakerDetail(String username, String password, String name, String managerName, String phone, String qq, String wechat, String province,
 			String city, String address) {
 		super();
-		this.autoMakerDetailId = autoMakerDetailId;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.managerName = managerName;
@@ -106,9 +109,9 @@ public class AutoMakerDetail implements Serializable {
 
 
 	// TODO delte this
-	public AutoMakerDetail(String autoMakerDetailId, String password, final String name) {
+	public AutoMakerDetail(String username, String password, final String name) {
 		super();
-		this.autoMakerDetailId = autoMakerDetailId;
+		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.managerName = "1";
@@ -121,14 +124,23 @@ public class AutoMakerDetail implements Serializable {
 		this.likes = 0;
 	}
 	
-	public String getAutoMakerDetailId() {
+	public Integer getAutoMakerDetailId() {
 		return autoMakerDetailId;
 	}
 
-	public void setAutoMakerDetailId(String autoMakerDetailId) {
+	public void setAutoMakerDetailId(Integer autoMakerDetailId) {
 		this.autoMakerDetailId = autoMakerDetailId;
+	}	
+
+	public String getUsername() {
+		return username;
 	}
-	
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 
 	public String getPassword() {
 		return password;

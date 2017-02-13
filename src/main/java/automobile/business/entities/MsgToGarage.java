@@ -1,6 +1,7 @@
 package automobile.business.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,15 +32,18 @@ public class MsgToGarage implements Serializable {
 	@JoinColumn(name="garageDetailId")
 	protected GarageDetail garageDetail = null;
 	
+	@Column(nullable = false)
+	private String time = null;	
 	
 	@Column(nullable = false)
     private String content = null;
 
-	public MsgToGarage(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, String content) {
+	public MsgToGarage(AutoMakerDetail autoMakerDetail, GarageDetail garageDetail, String time, String content) {
 		super();
 		this.autoMakerDetail = autoMakerDetail;
 		this.garageDetail = garageDetail;
 		this.content = content;
+		this.time = time;
 	}
 	
 	public AutoMakerDetail getAutoMakerDetail() {
@@ -69,6 +73,14 @@ public class MsgToGarage implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
 	}
 
 	@Override

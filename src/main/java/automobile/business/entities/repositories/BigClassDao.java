@@ -17,5 +17,7 @@ public interface BigClassDao {
     void delete(BigClass entity);
 
     void deleteById(Integer entityId);
-
+    
+    // API
+    BigClass findOne(String name);
 }
