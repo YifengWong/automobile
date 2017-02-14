@@ -19,7 +19,7 @@
 	<!-- resource resolution infrastructure, which is highly recommended.          -->
 	<bean id="templateResolver"
 	       class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
-	  <property name="prefix" value="/WEB-INF/templates/" />
+	  <property name="prefix" value="/WEB-INF/htmls/" />
 	  <property name="suffix" value=".html" />
 	  <!-- HTML is the default value, added here for the sake of clarity.          -->
 	  <property name="templateMode" value="HTML" />
@@ -43,7 +43,6 @@
  
 	<bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 	  <property name="templateEngine" ref="templateEngine" />
-	  <property name="contentType" value="text/json;charset=UTF-8"/>
 	</bean>
 	
 </beans>

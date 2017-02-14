@@ -1,5 +1,7 @@
 package automobile.business.entities.repositories;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import automobile.business.entities.AutoMakerDetail;
@@ -15,8 +17,15 @@ public class AutoMakerDetailDaoImpl extends AbstractJpaDAO<AutoMakerDetail> impl
 
     // API
 	public AutoMakerDetail findOne(String username) {
-		return (AutoMakerDetail) this.getEntityManager()
-    			.createQuery("from AutoMakerDetail as obj where obj.username=:un")
-    			.setParameter("un", username).getSingleResult();
+		AutoMakerDetail auto = null;
+		try {
+			auto = (AutoMakerDetail) this.getEntityManager()
+	    			.createQuery("from AutoMakerDetail as obj where obj.username=:un")
+	    			.setParameter("un", username).getSingleResult();
+		} catch (NoResultException e) {
+			auto = null;
+		}
+		
+		return auto;
 	}
 }

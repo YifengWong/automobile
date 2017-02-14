@@ -2,6 +2,8 @@ package automobile.business.entities.repositories;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import automobile.business.entities.BigClass;
@@ -25,9 +27,16 @@ public class SmallClassDaoImpl extends AbstractJpaDAO<SmallClass> implements Sma
     }
 
 	public SmallClass findOne(String name) {
-		return (SmallClass) this.getEntityManager()
-    			.createQuery("from SmallClass as obj where obj.name=:n")
-    			.setParameter("n", name).getSingleResult();
+		SmallClass smallClass = null;
+		try {
+			smallClass = (SmallClass) this.getEntityManager()
+	    			.createQuery("from SmallClass as obj where obj.name=:n")
+	    			.setParameter("n", name).getSingleResult();
+		} catch (NoResultException e) {
+			smallClass = null;
+		}
+		
+		return smallClass;
 	}
 
 }

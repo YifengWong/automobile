@@ -43,19 +43,23 @@ private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.ge
 	private FavorableService favorableService = ctx.getBean(FavorableService.class);
 	private WantedService wantedService = ctx.getBean(WantedService.class);
 	
-	@RequestMapping("/testJson")
+	@RequestMapping(value = "/testJson", method = RequestMethod.POST)
 	public void testJson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Test t = new Test("1", "Name");
-
+		String content = request.getParameter("content");
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(content);
 	}
 	
 	@RequestMapping(value = "/writeDB")
 	public void writeDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BigClass big1 = new BigClass("danXiang");
+		BigClass big1 = new BigClass("单项件");
 		classService.createBigClass(big1);
 		
+		BigClass big2 = new BigClass("欧美车系");
+		classService.createBigClass(big2);
+		
 		SmallClass small1 = new SmallClass(big1, "水箱");
-		SmallClass small2 = new SmallClass(big1, "lihaide");
+		SmallClass small2 = new SmallClass(big1, "电池");
 		classService.createSmallClass(small1);
 		classService.createSmallClass(small2);
 		
@@ -74,8 +78,6 @@ private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.ge
 		msgService.createMsgToGarage(msg1);
 		
 		favorableService.createFavorable(new Favorable(auto1, "12年", "16年", "握草"), set1);
-		
-		response.getWriter().write(small1.getName());
 	}
 	
 	@RequestMapping(value = "/testPost", method = RequestMethod.POST)

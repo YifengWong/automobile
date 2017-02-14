@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>create class</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<h2 id='status' class='statussignIn'>create class</h2>
+		<form action='http://localhost:8080/createClass' method='post' accept-charset="UTF-8">
+			<div id='info' class='showInput'>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>bigClass </span><input name='bigClassName' id='bigClassName'><br>
+				<span>smallClass </span><input name='smallClassName' id='smallClassName'><br>
+			</div>
+			<div id='btn'>
+				<button id='submitBtn' type='submit'>submit</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

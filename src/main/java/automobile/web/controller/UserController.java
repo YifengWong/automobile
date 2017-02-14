@@ -33,7 +33,7 @@ public class UserController {
 		String password = request.getParameter("password");
 		String certcode = request.getParameter("certCode");
 		String usertype = request.getParameter("userType");
-		// 用Redis缓存放验证码
+		// use Redis
 		// TODO check certCode
 		boolean certCodeFlag = true;
 		

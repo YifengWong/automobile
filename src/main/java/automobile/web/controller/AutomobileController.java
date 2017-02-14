@@ -36,26 +36,9 @@ public class AutomobileController {
 	
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
-	
-	private ClassService classService = ctx.getBean(ClassService.class);
-	private UserDetailService userDetailService = ctx.getBean(UserDetailService.class); 
-	
-	private DiscussService discussService = ctx.getBean(DiscussService.class);
-	private MsgService msgService = ctx.getBean(MsgService.class);
-	
-	private FavorableService favorableService = ctx.getBean(FavorableService.class);
-	private WantedService wantedService = ctx.getBean(WantedService.class);
-	
-	
-
-	
-	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
-	public void newClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String bigClassName = request.getParameter("bigClassName");
-		String smallClassName = request.getParameter("smallClassName");
-		// TODO
+	@RequestMapping(value = "/createClass", method = RequestMethod.GET)
+	public String createClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return "createClass";
 	}
-	
-
 	
 }

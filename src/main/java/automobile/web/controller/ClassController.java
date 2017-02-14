@@ -22,11 +22,13 @@ public class ClassController {
 	
 	@RequestMapping("/getClasses")
 	public void getClasses(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.getWriter().write(new ResultObject("succ", "OK", classService.findAllBigClasses()).getJsonString());
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(new ResultObject("succ", "classes", classService.findAllBigClasses()).getJsonString());
 	}
 	
 	@RequestMapping(value = "/createClass", method = RequestMethod.POST)
 	public void createClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		String bigClassName = request.getParameter("bigClassName");
 		String smallClassName = request.getParameter("smallClassName");
 		
@@ -41,6 +43,8 @@ public class ClassController {
 		SmallClass smallClass = new SmallClass(bigClass, smallClassName);
 		
 		classService.createSmallClass(smallClass);
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(new ResultObject(ResultObject.SUCC, "sm", smallClass).getJsonString());
 	}
 	
 }

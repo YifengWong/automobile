@@ -1,5 +1,7 @@
 package automobile.business.entities.repositories;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import automobile.business.entities.GarageDetail;
@@ -15,9 +17,16 @@ public class GarageDetailDaoImpl extends AbstractJpaDAO<GarageDetail> implements
 
     // API
 	public GarageDetail findOne(String username) {
-		return (GarageDetail) this.getEntityManager()
-    			.createQuery("from GarageDetail as obj where obj.username=:un")
-    			.setParameter("un", username).getSingleResult();
+		GarageDetail garageDetail = null;
+		try {
+			garageDetail = (GarageDetail) this.getEntityManager()
+	    			.createQuery("from GarageDetail as obj where obj.username=:un")
+	    			.setParameter("un", username).getSingleResult();
+		} catch (NoResultException e) {
+			garageDetail = null;
+		}
+		
+		return garageDetail;
 	}
 
 }

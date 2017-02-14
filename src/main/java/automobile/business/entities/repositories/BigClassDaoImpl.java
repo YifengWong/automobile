@@ -1,5 +1,7 @@
 package automobile.business.entities.repositories;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.stereotype.Repository;
 
 import automobile.business.entities.BigClass;
@@ -15,9 +17,15 @@ public class BigClassDaoImpl extends AbstractJpaDAO<BigClass> implements BigClas
 
     // API
 	public BigClass findOne(String name) {
-		return (BigClass) this.getEntityManager()
-    			.createQuery("from BigClass as obj where obj.name=:n")
-    			.setParameter("n", name).getSingleResult();
+		BigClass bigClass = null;
+		try {
+			bigClass = (BigClass) this.getEntityManager()
+	    			.createQuery("from BigClass as obj where obj.name=:n")
+	    			.setParameter("n", name).getSingleResult();
+		} catch (NoResultException e) {
+			bigClass = null;
+		}
+		return bigClass;
 	}
 
 }
