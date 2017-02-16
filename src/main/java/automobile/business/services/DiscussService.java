@@ -40,7 +40,7 @@ public class DiscussService {
 		return discussToGarageDao.findDiscussesToGarage(garageDetail);
 	}
 	
-	public List<DiscussToAutoMaker> findAllDisscussToAutoMaker(final AutoMakerDetail autoMakerDetail) {
+	public List<DiscussToAutoMaker> findAllDiscussToAutoMaker(final AutoMakerDetail autoMakerDetail) {
 		return discussToAutoMakerDao.findDiscussesToAutoMaker(autoMakerDetail);
 	}
 

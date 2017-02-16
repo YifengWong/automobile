@@ -58,7 +58,13 @@ public class PersistenceJPAConfig {
         dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
         dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
         dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
-
+        
+        dataSource.addConnectionProperty("hibernate.connection.provider_class", env.getProperty("hibernate.connection.provider_class"));
+        dataSource.addConnectionProperty("hibernate.c3p0.min_size", env.getProperty("hibernate.c3p0.min_size"));
+        dataSource.addConnectionProperty("hibernate.c3p0.max_size", env.getProperty("hibernate.c3p0.max_size"));
+        dataSource.addConnectionProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
+        dataSource.addConnectionProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
+        
         return dataSource;
     }
 

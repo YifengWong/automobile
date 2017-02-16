@@ -34,5 +34,9 @@ public class WantedService {
     		wantedsSmallClassesMiddleDao.create(new WantedsSmallClassesMiddle(sc, wanted));
     	}
     }
+    
+    public List<Wanted> findAllWanted() {
+    	return wantedDao.findAll();
+    }
 
 }

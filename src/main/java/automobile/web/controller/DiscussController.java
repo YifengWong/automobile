@@ -7,29 +7,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import automobile.business.entities.AbstractUserDetail;
 import automobile.business.entities.AutoMakerDetail;
+import automobile.business.entities.DiscussToAutoMaker;
+import automobile.business.entities.DiscussToGarage;
 import automobile.business.entities.GarageDetail;
-import automobile.business.entities.MsgToAutoMaker;
-import automobile.business.entities.MsgToGarage;
-import automobile.business.services.MsgService;
+import automobile.business.services.DiscussService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
 
-@Controller
-public class MsgController {
+public class DiscussController {
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
 	private UserDetailService userDetailService = ctx.getBean(UserDetailService.class); 
 	
-	private MsgService msgService = ctx.getBean(MsgService.class);
+	private DiscussService discussService = ctx.getBean(DiscussService.class);
 	
-	@RequestMapping(value = "/getMsgs", method = RequestMethod.POST)
-	public void getMsgs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/getDiscusses", method = RequestMethod.POST)
+	public void getDiscusses(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String username = request.getParameter("username");
 		String usertype = request.getParameter("usertype");
 
@@ -47,30 +45,32 @@ public class MsgController {
 		}
 
 		if (user instanceof AutoMakerDetail) {
-			List<MsgToAutoMaker> msgs = msgService.findAllMsgsToAutoMaker((AutoMakerDetail) user);
-			response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());
+			List<DiscussToAutoMaker> discusses = discussService.findAllDiscussToAutoMaker((AutoMakerDetail) user);
+			response.getWriter().write(new ResultObject(ResultObject.SUCC, "discusses", discusses).getJsonString());
 			return;
 		} else if (user instanceof GarageDetail) {
-			List<MsgToGarage> msgs = msgService.findAllMsgsToGarage((GarageDetail) user);
-			response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());	
+			List<DiscussToGarage> discusses = discussService.findAllDiscussToGarage((GarageDetail) user);
+			response.getWriter().write(new ResultObject(ResultObject.SUCC, "discusses", discusses).getJsonString());
 			return;
 		}
 		
 	}
 	
-	@RequestMapping(value = "/sendMsgToGarage", method = RequestMethod.POST)
+	@RequestMapping(value = "/sendDiscussToGarage", method = RequestMethod.POST)
 	public void sendMsgToGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String senderName = request.getParameter("senderName");
 		String receiverName = request.getParameter("receiverName");
-		String content = request.getParameter("content");
 		String nowTime = new Date().toString();
+		Integer stars = Integer.valueOf(request.getParameter("stars"));
+		String content = request.getParameter("content");
+		
 		
 		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(senderName);
 		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(receiverName);
 		
-		MsgToGarage msg = new MsgToGarage(autoMakerDetail, garageDetail, nowTime, content);
-		msgService.createMsgToGarage(msg);
-		
+		DiscussToGarage discuss = new DiscussToGarage(autoMakerDetail, garageDetail, nowTime, stars, content);
+		discussService.createDiscussToGarage(discuss);
+				
 		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", null).getJsonString());
 		
 	}
@@ -79,16 +79,16 @@ public class MsgController {
 	public void sendMsgToAutoMaker(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String senderName = request.getParameter("senderName");
 		String receiverName = request.getParameter("receiverName");
-		String content = request.getParameter("content");
 		String nowTime = new Date().toString();
+		Integer stars = Integer.valueOf(request.getParameter("stars"));
+		String content = request.getParameter("content");
 		
 		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(receiverName);
 		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(senderName);
 
-		MsgToAutoMaker msg = new MsgToAutoMaker(autoMakerDetail, garageDetail, nowTime, content);
-		msgService.createMsgToAutoMaker(msg);
+		DiscussToAutoMaker discuss = new DiscussToAutoMaker(autoMakerDetail, garageDetail, nowTime, stars, content);
+		discussService.createDiscussToAutoMaker(discuss);
 		
 		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", null).getJsonString());
 	}
-	
 }

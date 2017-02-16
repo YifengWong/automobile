@@ -1,5 +1,6 @@
 package automobile.business.services;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class FavorableService {
     	for (SmallClass sc : classes) {
     		favorablesSmallClassesMiddleDao.create(new FavorablesSmallClassesMiddle(sc, favorable));
     	}
+    }
+    
+    public List<Favorable> findAllFavorable() {
+    	return favorableDao.findAll();
     }
 
 }

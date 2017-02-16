@@ -41,6 +41,7 @@ public class UserController {
 		if (!certCodeFlag) {
 			response.getWriter().write(new ResultObject(
 					ResultObject.FAIL, "cert code wrong", null).getJsonString());
+			return;
 		} 
 		if (usertype.equals("autoMaker")) {
 			AutoMakerDetail user = new AutoMakerDetail(username, password, "");

@@ -31,7 +31,7 @@ import automobile.util.ResultObject;
 
 @Controller
 public class TestController {
-private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
+	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
 	
 	private ClassService classService = ctx.getBean(ClassService.class);
