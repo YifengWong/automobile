@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,7 +18,9 @@ import automobile.business.services.ClassService;
 import automobile.business.services.UserDetailService;
 import automobile.business.services.WantedService;
 import automobile.util.ResultObject;
+import automobile.util.config.StaticConfig;
 
+@Controller
 public class WantedController {
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
@@ -29,11 +32,15 @@ public class WantedController {
 	
 	@RequestMapping(value = "/getAllWanted", method = RequestMethod.GET)
 	public void getAllWanted(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", wantedService.findAllWanted()).getJsonString());
+		response.setContentType("text/json;charset=UTF-8");
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_WANTED, wantedService.findAllWanted())
+				.getJsonString());
 	}
 	
 	@RequestMapping(value = "/createWanted", method = RequestMethod.POST)
 	public void createWanted(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String senderName = request.getParameter("senderName");
 		String dateFrom = request.getParameter("dateFrom");
 		String dateTo = request.getParameter("dateTo");
@@ -50,7 +57,9 @@ public class WantedController {
 		}
 		
 		wantedService.createWanted(wanted, smallClasses);
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", null).getJsonString());
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CREATE_WANTED_SUCC, null)
+				.getJsonString());
 		
 	}
 }

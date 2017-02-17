@@ -1,6 +1,7 @@
 package automobile.web.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import automobile.business.entities.AbstractUserDetail;
 import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.BigClass;
+import automobile.business.entities.DiscussToAutoMaker;
+import automobile.business.entities.DiscussToGarage;
 import automobile.business.entities.Favorable;
 import automobile.business.entities.GarageDetail;
+import automobile.business.entities.MsgToAutoMaker;
 import automobile.business.entities.MsgToGarage;
 import automobile.business.entities.SmallClass;
 import automobile.business.entities.Test;
+import automobile.business.entities.Wanted;
 import automobile.business.services.ClassService;
 import automobile.business.services.DiscussService;
 import automobile.business.services.FavorableService;
@@ -28,6 +33,7 @@ import automobile.business.services.MsgService;
 import automobile.business.services.UserDetailService;
 import automobile.business.services.WantedService;
 import automobile.util.ResultObject;
+import automobile.util.config.StaticConfig;
 
 @Controller
 public class TestController {
@@ -74,10 +80,17 @@ public class TestController {
 		GarageDetail gd1 = new GarageDetail("12345645610", "IIAHSFDJK", "garage1");
 		userDetailService.createGarageDetail(gd1);
 		
-		MsgToGarage msg1 = new MsgToGarage(auto1, gd1, "contengmsg", "12");
-		msgService.createMsgToGarage(msg1);
+		msgService.createMsgToGarage(new MsgToGarage(auto1, gd1, new Date().toString(), "内容 "));
 		
-		favorableService.createFavorable(new Favorable(auto1, "12年", "16年", "握草"), set1);
+		msgService.createMsgToAutoMaker(new MsgToAutoMaker(auto1, gd1, new Date().toString(), "内容"));
+		
+		discussService.createDiscussToAutoMaker(new DiscussToAutoMaker(auto1, gd1, new Date().toString(), 3, "呢绒"));
+		discussService.createDiscussToGarage(new DiscussToGarage(auto1, gd1, new Date().toString(), 3, "呢绒"));
+		
+		
+		favorableService.createFavorable(new Favorable(auto1, new Date().toString(), "16年", "握草"), set1);
+		
+		wantedService.createWanted(new Wanted(gd1, "12年", "16年", "内容"), set1);
 	}
 	
 	@RequestMapping(value = "/testPost", method = RequestMethod.POST)
@@ -95,17 +108,18 @@ public class TestController {
 	
 	@RequestMapping("/testAbs")
 	public void testAbs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		AbstractUserDetail user = null;
 
 		user = userDetailService.findAutoMakerDetailByUserName("12345678910");
 		
 		if (user == null) {
 			response.getWriter().write(new ResultObject(
-					ResultObject.FAIL, "username wrong", null).getJsonString());
+					StaticConfig.STR_RESULT_FAIL, "username wrong", null).getJsonString());
 		} else {
 
 				response.getWriter().write(new ResultObject(
-						ResultObject.SUCC, "OK", user).getJsonString());
+						StaticConfig.STR_RESULT_SUCC, "OK", user).getJsonString());
 		}
 	}
 	

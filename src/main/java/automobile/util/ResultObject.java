@@ -9,7 +9,7 @@ import automobile.business.entities.GarageDetail;
 /**
  * @author CrazeWong
  * 
- * key关系
+ * key锟斤拷系
  * bigClass - smallClasses
  * smallClass - 
  * autosmiddle - autoMaker
@@ -23,7 +23,7 @@ import automobile.business.entities.GarageDetail;
  * favorable - automaker
  *
  *
- * full关系
+ * full锟斤拷系
  * bigClass - smallClasses
  * smallClass - 
  * autosmiddle - smallClass
@@ -38,10 +38,6 @@ import automobile.business.entities.GarageDetail;
 
  */
 public class ResultObject {
-	
-	public final static String SUCC = "success";
-	
-	public final static String FAIL = "failed";
 	
 	private String result = null;
 	
@@ -108,5 +104,5 @@ public class ResultObject {
 		builder.append("\"}");
 		return builder.toString();
 	}
-
+	
 }

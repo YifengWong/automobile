@@ -145,8 +145,7 @@
     		<artifactId>hibernate-c3p0</artifactId>
     		<version>5.0.11.Final</version>
 		</dependency>
-
-
+		
 		<!-- utils -->
 		<dependency>
 			<groupId>com.google.guava</groupId>

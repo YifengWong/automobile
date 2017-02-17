@@ -12,6 +12,7 @@ import automobile.business.entities.BigClass;
 import automobile.business.entities.SmallClass;
 import automobile.business.services.ClassService;
 import automobile.util.ResultObject;
+import automobile.util.config.StaticConfig;
 
 @Controller
 public class ClassController {
@@ -23,12 +24,15 @@ public class ClassController {
 	@RequestMapping("/getClasses")
 	public void getClasses(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
-		response.getWriter().write(new ResultObject("succ", "classes", classService.findAllBigClasses()).getJsonString());
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_CLASSES, classService.findAllBigClasses())
+				.getJsonString());
 	}
 	
 	@RequestMapping(value = "/createClass", method = RequestMethod.POST)
 	public void createClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+		response.setContentType("text/json;charset=UTF-8");
+		
 		String bigClassName = request.getParameter("bigClassName");
 		String smallClassName = request.getParameter("smallClassName");
 		
@@ -43,8 +47,10 @@ public class ClassController {
 		SmallClass smallClass = new SmallClass(bigClass, smallClassName);
 		
 		classService.createSmallClass(smallClass);
-		response.setContentType("text/json;charset=UTF-8");
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "sm", smallClass).getJsonString());
+		
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, "sm", smallClass)
+				.getJsonString());
 	}
 	
 }

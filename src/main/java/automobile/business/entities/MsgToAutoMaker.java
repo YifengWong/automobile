@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name="DiscussToAutoMaker")
+@Entity(name="MsgToAutoMaker")
 public class MsgToAutoMaker implements Serializable {
 
 	private static final long serialVersionUID = 1L;

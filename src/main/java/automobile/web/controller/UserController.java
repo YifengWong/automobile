@@ -18,6 +18,7 @@ import automobile.business.entities.SmallClass;
 import automobile.business.services.ClassService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
+import automobile.util.config.StaticConfig;
 
 @Controller
 public class UserController {
@@ -27,36 +28,46 @@ public class UserController {
 
 	private ClassService classService = ctx.getBean(ClassService.class);
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public void register(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String certcode = request.getParameter("certCode");
 		String usertype = request.getParameter("userType");
-		// use Redis
+		
+		// certcode TODO use Redis here
 		// TODO check certCode
 		boolean certCodeFlag = true;
 		
 		
 		if (!certCodeFlag) {
 			response.getWriter().write(new ResultObject(
-					ResultObject.FAIL, "cert code wrong", null).getJsonString());
+					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_WRONG_CERTCODE, null)
+					.getJsonString());
 			return;
-		} 
-		if (usertype.equals("autoMaker")) {
+		}
+		// TODO: 查重
+		if (usertype.equals(StaticConfig.TYPE_AUTOMAKER)) {
 			AutoMakerDetail user = new AutoMakerDetail(username, password, "");
 			userDetailService.createAutoMakerDetail(user, null);
-		} else if (usertype.equals("garage")) {
+		} else if (usertype.equals(StaticConfig.TYPE_GARAGE)) {
 			GarageDetail user = new GarageDetail(username, password, "");
 			userDetailService.createGarageDetail(user);
 		} else {
-			// TODO return failed
+			// TODO
 		}
+		
+		
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_REGISTER_SUCC, null)
+				.getJsonString());
 		
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public void login(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String usertype = request.getParameter("usertype");
@@ -71,14 +82,17 @@ public class UserController {
 		
 		if (user == null) {
 			response.getWriter().write(new ResultObject(
-					ResultObject.FAIL, "username wrong", null).getJsonString());
+					StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_USERNAME, null)
+					.getJsonString());
 		} else {
 			if (!user.getPassword().equals(password)) {
 				response.getWriter().write(new ResultObject(
-						ResultObject.FAIL, "password wrong", null).getJsonString());
+						StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_PASSWORD, null)
+						.getJsonString());
 			} else {
 				response.getWriter().write(new ResultObject(
-						ResultObject.SUCC, "OK", user).getJsonString());
+						StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_LOGIN_SUCC, user)
+						.getJsonString());
 			}
 		}
 		
@@ -87,11 +101,16 @@ public class UserController {
 	@RequestMapping(value = "/getAutosBySmallClassId")
 	public void getAutosBySmallClassId(@RequestParam(value="smallClassId", required=true) String smallClassId, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		SmallClass smallClass = classService.findSmallClasById(Integer.valueOf(smallClassId));
+		response.setContentType("text/json;charset=UTF-8");
 		
+		SmallClass smallClass = classService.findSmallClasById(Integer.valueOf(smallClassId));
 		List<AutoMakerDetail> autos = userDetailService.findAllAutoMakerDetailBySmallClass(smallClass);
 		
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "autos", autos).getJsonString());
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CLASS_AUTOMAKERS, autos)
+				.getJsonString());
 		
 	}
+	
+	// TODO Set detail
 }

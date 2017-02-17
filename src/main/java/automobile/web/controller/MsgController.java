@@ -19,6 +19,7 @@ import automobile.business.entities.MsgToGarage;
 import automobile.business.services.MsgService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
+import automobile.util.config.StaticConfig;
 
 @Controller
 public class MsgController {
@@ -30,6 +31,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/getMsgs", method = RequestMethod.POST)
 	public void getMsgs(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String usertype = request.getParameter("usertype");
 
@@ -42,17 +44,23 @@ public class MsgController {
 		}
 		
 		if (user == null) {
-			response.getWriter().write(new ResultObject(ResultObject.FAIL, "no user", null).getJsonString());
+			response.getWriter().write(new ResultObject(
+					StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_USERNAME, null)
+					.getJsonString());
 			return;
 		}
 
 		if (user instanceof AutoMakerDetail) {
 			List<MsgToAutoMaker> msgs = msgService.findAllMsgsToAutoMaker((AutoMakerDetail) user);
-			response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());
+			response.getWriter().write(new ResultObject(
+					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL＿MSGS, msgs)
+					.getJsonString());
 			return;
 		} else if (user instanceof GarageDetail) {
 			List<MsgToGarage> msgs = msgService.findAllMsgsToGarage((GarageDetail) user);
-			response.getWriter().write(new ResultObject(ResultObject.SUCC, "msgs", msgs).getJsonString());	
+			response.getWriter().write(new ResultObject(
+					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL＿MSGS, msgs)
+					.getJsonString());	
 			return;
 		}
 		
@@ -60,6 +68,7 @@ public class MsgController {
 	
 	@RequestMapping(value = "/sendMsgToGarage", method = RequestMethod.POST)
 	public void sendMsgToGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String senderName = request.getParameter("senderName");
 		String receiverName = request.getParameter("receiverName");
 		String content = request.getParameter("content");
@@ -71,12 +80,15 @@ public class MsgController {
 		MsgToGarage msg = new MsgToGarage(autoMakerDetail, garageDetail, nowTime, content);
 		msgService.createMsgToGarage(msg);
 		
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", null).getJsonString());
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_SENDMSG_SUCC, null)
+				.getJsonString());
 		
 	}
 	
 	@RequestMapping(value = "/sendMsgToAutoMaker", method = RequestMethod.POST)
 	public void sendMsgToAutoMaker(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String senderName = request.getParameter("senderName");
 		String receiverName = request.getParameter("receiverName");
 		String content = request.getParameter("content");
@@ -88,7 +100,9 @@ public class MsgController {
 		MsgToAutoMaker msg = new MsgToAutoMaker(autoMakerDetail, garageDetail, nowTime, content);
 		msgService.createMsgToAutoMaker(msg);
 		
-		response.getWriter().write(new ResultObject(ResultObject.SUCC, "OK", null).getJsonString());
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_SENDMSG_SUCC, null)
+				.getJsonString());
 	}
 	
 }

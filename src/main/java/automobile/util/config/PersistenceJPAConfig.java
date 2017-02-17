@@ -58,13 +58,7 @@ public class PersistenceJPAConfig {
         dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
         dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
         dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
-        
-        dataSource.addConnectionProperty("hibernate.connection.provider_class", env.getProperty("hibernate.connection.provider_class"));
-        dataSource.addConnectionProperty("hibernate.c3p0.min_size", env.getProperty("hibernate.c3p0.min_size"));
-        dataSource.addConnectionProperty("hibernate.c3p0.max_size", env.getProperty("hibernate.c3p0.max_size"));
-        dataSource.addConnectionProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
-        dataSource.addConnectionProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
-        
+   
         return dataSource;
     }
 
@@ -85,6 +79,18 @@ public class PersistenceJPAConfig {
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
+        
+        // use connection pool
+        hibernateProperties.setProperty("hibernate.connection.driver_class", env.getProperty("jdbc.driverClassName"));
+        hibernateProperties.setProperty("hibernate.connection.url", env.getProperty("jdbc.url"));
+        hibernateProperties.setProperty("hibernate.connection.username", env.getProperty("jdbc.user"));
+        hibernateProperties.setProperty("hibernate.connection.password", env.getProperty("jdbc.pass"));
+        hibernateProperties.setProperty("hibernate.connection.provider_class", env.getProperty("hibernate.connection.provider_class"));
+        hibernateProperties.setProperty("hibernate.c3p0.min_size", env.getProperty("hibernate.c3p0.min_size"));
+        hibernateProperties.setProperty("hibernate.c3p0.max_size", env.getProperty("hibernate.c3p0.max_size"));
+        hibernateProperties.setProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
+        hibernateProperties.setProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
+        
         return hibernateProperties;
     }
 
