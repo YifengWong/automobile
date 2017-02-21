@@ -18,6 +18,7 @@ public class StaticConfig {
 	public static String MSG_ALL_DISCUSSES = "所有评论";
 	public static String MSG_ALL_FAVORABLE = "所有优惠";
 	public static String MSG_ALL_WANTED = "所有求购信息";
+	public static String MSG_AUTOMAKER = "汽配商信息";
 	
 	public static String MSG_CLASS_AUTOMAKERS = "当前分类所有汽配商";
 	

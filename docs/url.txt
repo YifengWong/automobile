@@ -1,0 +1,118 @@
+手机号：指用户名
+
+///////////////////////////////////////////////////////////////////////
+
+
+类别：
+/getClasses : 获取所有分类
+	- GET
+
+/createClass : 新建分类
+	- POST:
+		- bigClassName : 大类名字
+		- smallClassName : 小类名字
+
+
+///////////////////////////////////////////////////////////////////////
+
+用户：
+/register : 注册
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
+		- certcode : 验证码，目前可以随意输入
+		- usertype : "autoMaker", "garage" 二选一
+
+/login : 登录
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
+		- usertype : "autoMaker", "garage" 二选一
+
+/getAutosBySmallClassId : 根据小类id获取分类下所有汽配商
+	- GET : param - ?smallClassId=3
+
+/getAutoMakerDetailById : 根据id获取汽配商信息
+	- GET ： param - ?autoMakerDetailId=5
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+消息：
+/getMsgs : 获取某用户收到的所有消息
+	- POST:
+		- username : 手机号
+		- usertype : "autoMaker", "garage" 二选一
+
+/sendMsgToGarage : 发消息给汽修厂
+	- POST:
+		- senderName : 手机号
+		- receiverName : 接受者手机号
+		- content : 消息内容
+
+/sendMsgToAutoMaker : 发消息给汽配商
+	- POST:
+		- senderName : 手机号
+		- receiverName : 接受者手机号
+		- content : 消息内容
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+评论：
+/getDiscusses : 获取目标用户的所有评论
+	- POST :
+		- username : 目标手机号
+		- usertype : 目标用户类型
+
+/sendDiscussToGarage : 向指定Garage评论
+	- POST :
+		- senderName : 发送者手机号
+		- receiverName : 接受者手机号
+		- stars : 星级 1-5
+		- content ：评论内容
+
+/sendDiscussToAutoMaker : 向指定AutoMaker评论
+	- POST :
+		- senderName : 发送者手机号
+		- receiverName : 接受者手机号
+		- stars : 星级 1-5
+		- content ：评论内容
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+优惠：
+/getAllFavorable : 获取所有优惠
+	- GET
+
+/createFavorable : 建立优惠
+	- POST :
+		- senderName : 用户手机号
+		- dateFrom : 字符串形式的有效开始时间 new Date().toString
+		- dateTo : 结束时间
+		- content : 内容
+		- classIds : 字符串形式的小类id数组，如"2,3,45,6"
+
+
+///////////////////////////////////////////////////////////////////////
+
+
+求购：
+/getAllWanted : 获取所有求购信息
+	- GET
+
+/createWanted : 新建求购信息
+	- POST :
+		- senderName : 用户手机号
+		- dateFrom : 字符串形式的有效开始时间 new Date().toString
+		- dateTo : 结束时间
+		- content : 内容
+		- classIds : 字符串形式的小类id数组，如"2,3,45,6"
+
+
+///////////////////////////////////////////////////////////////////////
+

@@ -109,6 +109,18 @@ public class UserController {
 		response.getWriter().write(new ResultObject(
 				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CLASS_AUTOMAKERS, autos)
 				.getJsonString());
+	}
+	
+	@RequestMapping(value = "/getAutoMakerDetailById")
+	public void getAutoMakerDetailById(@RequestParam(value="autoMakerDetailId", required=true) String autoMakerDetailId, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
+		
+		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailById(Integer.valueOf(autoMakerDetailId));
+		
+		response.getWriter().write(new ResultObject(
+				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_AUTOMAKER, autoMakerDetail)
+				.getJsonString());
 		
 	}
 	

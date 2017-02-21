@@ -99,9 +99,9 @@ public class ResultObject {
 		builder.append(result);
 		builder.append("\",\"state\":\"");
 		builder.append(state);
-		builder.append("\",\"object\":\"");
+		builder.append("\",\"object\":");
 		builder.append(object.toString());
-		builder.append("\"}");
+		builder.append("}");
 		return builder.toString();
 	}
 	

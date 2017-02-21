@@ -1,0 +1,262 @@
+// toString获取full， 平时使用json将获取key关系
+// allClass 分类信息
+{
+	"allClass" : [
+		{"bigClass" : "国产车系",
+		 "smallClass" : ["荣威", "夏利"]},
+		{"bigClass" : "欧美车系",
+		 "smallClass" : ["奥迪", "大众"]},
+		{"bigClass" : "大车系列",
+		 "smallClass" : []},
+		{"BigClass" : "单项件",
+		 "smallClass" : ["汽车水箱", "三滤"]}
+	]
+}
+
+
+// autoMakerDetail 汽配商信息
+{
+	"autoMakerDetail" :  {
+		"autoMakerId" : "opivjhaproiwh",
+		"name" : "珠海市XXX公司",
+		"manager" : "王先生",
+		"phone" : "12345678910",
+		"qq" : "123456879",
+		"wechat" : "",
+		"province" : "广东省",
+		"city" : "珠海市",
+		"address" : "xx路123号",
+		"like" : "12",// 点赞数
+		"class" : "夏利, 大众, 三滤"
+	}
+}
+
+
+// garageDetail 汽修厂信息
+{
+	"garageDetail" :  {
+		"garageId" : "opivjhaproiwh",
+		"name" : "珠海市XXX汽修",
+		"manager" : "王先生",
+		"phone" : "12345678910",
+		"qq" : "123456879",
+		"wechat" : "",
+		"province" : "广东省",
+		"city" : "珠海市",
+		"address" : "xx路122314号",
+		"like" : "12"
+	}
+}
+
+
+// discussAutoMaker 评论
+{
+	"autoMakerDiscusses" : [
+		{"discussId" : "JHASDKJH", 
+		 "to" : "the autoMaker ID", 
+		 "from" : "汽修厂的名字", 
+		 "type" : "good", 
+		 "discuss" : "好好好好好评"},
+		{"discussId" : "JHASDKJH",
+		 "to" : "the autoMaker ID",
+		 "from" : "汽修厂的名字",
+		 "type" : "bad",
+		 "discuss" : "差差差评"},
+		{"discussId" : "JHASDKJH",
+		 "to" : "the autoMaker ID",
+		 "from" : "汽修厂的名字",
+		 "type" : "middle",
+		 "discuss" : "中中中评"}
+	]
+}
+
+
+// discussGarage 评论
+{
+	"garageDiscusses" : [
+		{"discussId" : "JHASDKJH",
+		 "to" : "the garage ID",
+		 "from" : "汽配商的名字",
+		 "type" : "good",
+		 "discuss" : "好好好好好评"},
+		{"discussId" : "JHASDKJH",
+		 "to" : "the garage ID",
+		 "from" : "汽配商的名字",
+		 "type" : "bad",
+		 "discuss" : "差差差评"},
+		{"discussId" : "JHASDKJH",
+		 "to" : "the garage ID",
+		 "from" : "汽配商的名字",
+		 "type" : "middle",
+		 "discuss" : "中中中评"}
+	]
+}
+
+
+
+// autoMakerToGarageMsg 汽配商回复汽修厂信息
+{
+	"autoMakerToGarageMsg" : {
+		"autoMakerToGarageMsgId" : "dslkfg",
+		"autoMakerId" : "KLJASHDIJ",
+		"garageId" : "AKSJDKJASD",
+		"content" : "汽配商回复汽修厂信息"
+	}
+}
+
+
+// garageToAutoMakerMsg 汽修厂回复汽配商信息
+{
+	"garageToAutoMakerMsg" : {
+		"garageToAutoMakerMsgId" : "ASKDJ",
+		"autoMakerId" : "KLJASHDIJ",
+		"garageId" : "AKSJDKJASD",
+		"content" : "汽修厂回复汽配商信息"
+	}
+}
+
+
+// favorable 优惠
+{
+	"favorable" : {
+		"favorableId" : "KJHASDKJ",
+		"autoMakerId" : "KLJASHDIJ",
+		"timeFrom" : "1900-5-8",
+		"timeTo" : "1900-5-9",
+		"smallClass" : ["夏利", "宝马"],
+		"content" : "大甩卖大甩卖"
+	}
+}
+
+
+// wanted 求购
+{
+	"wanted" : {
+		"wantedId" : "ASKDJ",
+		"garageId" : "AKSJDKJASD",
+		"timeFrom" : "1900-5-8",
+		"timeTo" : "1900-5-9",
+		"smallClass" : ["夏利", "宝马"],
+		"content" : "求购求购"
+	}
+}
+
+
+// favoriteGarage 收藏，garage属性
+{
+	"favoriteGarage" : {
+		"garageId" : "AKSJDKJASD",
+		"favorites" : [
+			{"autoMakerId" : "KLJASHDIJ", "name" : "珠海市XXX公司"},
+			{"autoMakerId" : "KLJASKJIJ", "name" : "珠海市yyy公司"}
+		]
+	}
+}
+
+/* service:
+
+autoMaker
+		- id, getAutoMakerDetail
+		-* smallClass, getAutoMakerDetailSet
+		- smallClassSet, createAutoMakerDetail
+
+garage
+		- id, getGarageDetail
+
+discuss
+		- autoMakerDetail, getDiscussSet
+		- garageDetail, getDiscussSet
+		- autoMakerDetail, garageDetail, createDiscuss *2
+
+msg
+		- autoMakerDetail, getMsgSet
+		- garageDetail, getMsgSet
+		- autoMakerDetail, garageDetail, createMsg *2
+
+class
+		- getAllClassSet
+		- createBigClass
+		- bigClass, createSmallClass
+		- bigClass, getSmallClassSet
+
+favorable 不分类
+		- smallClass, getFavorables
+		- smallClassSet, autoMakerDetail, createFavorable
+		-* autoMakerDetail, getFavorable
+
+wanted
+		- smallClass, getWanteds
+		- smallClassSet, garageDetail, createWanted
+		-* garageDetail, getWanted
+
+*/
+
+// URL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+PowerShell：
+cURL http://127.0.0.1:8080/testPost -Method POST -Body '{"username":"UserName", "password":"PassWord"}'
+curl -X POST -H  "Content-Type: text/html; charset=UTF-8" --data-ascii "bigClassName=asdf&smallClassName=asdf" http://127.0.0.1:8080/createClass
+{
+	"result" : "success",
+	"state" : "detail"
+}
+
+
+
+
+*/
+
+
+
+
+// 获取 证件，评价
+/*
+response.setContentType("text/json;charset=UTF-8");
+response.getWriter().write(new ResultObject(
+		StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CLASSES, object)
+		.getJsonString());
+
+
+*/
+
+
+
+/*
+
+
+
+http://119.29.166.163:8080/automobile-0.0.1-SNAPSHOT/getClasses
+http://119.29.166.163:8080/automobile-v0.2/getClasses
+sudo lsof -i:8080
+java -jar start.jar > /home/ubuntu/logs/xxx.log
+
+*/
