@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author CrazeWong
- * Ğ¡·ÖÀà£¬°üÀ¨³µĞÍ¡¢Ë®ÏäµÈ¡£
+ * å°åˆ†ç±»
  *
  */
 @Entity(name="SmallClass")

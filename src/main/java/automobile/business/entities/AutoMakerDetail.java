@@ -84,6 +84,9 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 	@JsonIgnore
     private Integer likes = 0;
 	
+	@Column(nullable = true)
+	@JsonIgnore
+	private String headImgName = null;
 	
 	public AutoMakerDetail() {
 		super();
@@ -104,24 +107,24 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		this.city = city;
 		this.address = address;
 		this.likes = 0;
+		this.headImgName = "";
 	}
 
 
-
-	// TODO delte this
 	public AutoMakerDetail(String username, String password, final String name) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.managerName = "1";
-		this.phone = "1";
-		this.qq = "1";
-		this.wechat = "1";
-		this.province = "1";
-		this.city = "1";
-		this.address = "1";
+		this.managerName = "";
+		this.phone = "";
+		this.qq = "";
+		this.wechat = "";
+		this.province = "";
+		this.city = "";
+		this.address = "";
 		this.likes = 0;
+		this.headImgName = "";
 	}
 	
 	public Integer getAutoMakerDetailId() {
@@ -158,6 +161,15 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getHeadImgName() {
+		return headImgName;
+	}
+
+
+	public void setHeadImgName(String headImgName) {
+		this.headImgName = headImgName;
 	}
 
 
@@ -333,6 +345,8 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		builder.append(address);
 		builder.append("\",\"likes\":\"");
 		builder.append(likes);
+		builder.append("\",\"headImgName\":\"");
+		builder.append(headImgName);
 		builder.append("\"}");
 		return builder.toString();
 	}

@@ -13,6 +13,10 @@ import automobile.business.entities.WantedsSmallClassesMiddle;
 import automobile.business.entities.repositories.WantedDao;
 import automobile.business.entities.repositories.WantedsSmallClassesMiddleDao;
 
+/**
+ * @author CrazeWong
+ * 求购信息相关服务类
+ */
 @Service
 @Transactional
 public class WantedService {
@@ -28,6 +32,13 @@ public class WantedService {
     }
 
     // API
+    
+    
+    /**
+     * @param wanted
+     * @param classes
+     * 根据分类创建求购信息
+     */
     public void createWanted(final Wanted wanted, final Set<SmallClass> classes) {
     	wantedDao.create(wanted);
     	for (SmallClass sc : classes) {
@@ -35,6 +46,10 @@ public class WantedService {
     	}
     }
     
+    /**
+     * @return
+     * 获取所有求购信息
+     */
     public List<Wanted> findAllWanted() {
     	return wantedDao.findAll();
     }

@@ -13,6 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * @author CrazeWong
+ * 给汽配商的消息
+ */
 @Entity(name="MsgToAutoMaker")
 public class MsgToAutoMaker implements Serializable {
 

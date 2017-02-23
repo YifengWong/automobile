@@ -13,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 
+/**
+ * @author CrazeWong
+ * 汽修厂的评价
+ */
 @Entity(name="DiscussToGarage")
 public class DiscussToGarage implements Serializable {
 

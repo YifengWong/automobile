@@ -6,7 +6,8 @@ import automobile.util.config.PersistenceJPAConfig;
 
 /**
  * @author CrazeWong
- * 单例模式，该上下文只需要有一个，作为数据库连接注册配置。
+ * 鑾峰彇涓婁笅鏂囷紝鍏朵腑鍖呭惈鎸佷箙灞傘�佹湇鍔″眰鐨刡ean
+ * 鍗曚緥妯″紡
  */
 public class DBCtx {
 	private static AnnotationConfigApplicationContext ctx = null;

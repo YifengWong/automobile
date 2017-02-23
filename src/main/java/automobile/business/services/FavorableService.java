@@ -13,6 +13,10 @@ import automobile.business.entities.SmallClass;
 import automobile.business.entities.repositories.FavorableDao;
 import automobile.business.entities.repositories.FavorablesSmallClassesMiddleDao;
 
+/**
+ * @author CrazeWong
+ * 优惠信息相关服务类
+ */
 @Service
 @Transactional
 public class FavorableService {
@@ -28,6 +32,13 @@ public class FavorableService {
     }
 
     // API
+    
+    
+    /**
+     * @param favorable
+     * @param classes
+     * 根据分类新建一条优惠信息
+     */
     public void createFavorable(final Favorable favorable, final Set<SmallClass> classes) {
     	favorableDao.create(favorable);
     	for (SmallClass sc : classes) {
@@ -35,6 +46,10 @@ public class FavorableService {
     	}
     }
     
+    /**
+     * @return
+     * 获取所有优惠信息
+     */
     public List<Favorable> findAllFavorable() {
     	return favorableDao.findAll();
     }

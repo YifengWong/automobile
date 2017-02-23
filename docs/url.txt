@@ -1,6 +1,10 @@
 手机号：指用户名
 
 ///////////////////////////////////////////////////////////////////////
+测试页面
+/postPage : 提供以下所有接口的html
+
+///////////////////////////////////////////////////////////////////////
 
 
 类别：
@@ -16,18 +20,27 @@
 ///////////////////////////////////////////////////////////////////////
 
 用户：
-/register : 注册
+/registerAutoMaker : 注册汽配商
 	- POST:
 		- username : 手机号
 		- password : MD5处理后的密码
 		- certcode : 验证码，目前可以随意输入
-		- usertype : "autoMaker", "garage" 二选一
 
-/login : 登录
+/registerGarage : 注册汽修厂
 	- POST:
 		- username : 手机号
 		- password : MD5处理后的密码
-		- usertype : "autoMaker", "garage" 二选一
+		- certcode : 验证码，目前可以随意输入
+
+/loginAutoMaker : 汽配商登录
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
+
+/loginGarage : 汽修厂登录
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
 
 /getAutosBySmallClassId : 根据小类id获取分类下所有汽配商
 	- GET : param - ?smallClassId=3
@@ -35,25 +48,57 @@
 /getAutoMakerDetailById : 根据id获取汽配商信息
 	- GET ： param - ?autoMakerDetailId=5
 
+/updateAutoMakerDetail : 修改个人信息（汽配商）
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
+		- name : 用户名字
+		- manager : 联系人
+		- phone : 手机
+		- qq : 
+		- wechat :
+		- province : 省份
+		- city : 城市
+		- address : 详细地址
+
+/updateGarageDetail : 修改个人信息（汽修厂）
+	- POST:
+		- username : 手机号
+		- password : MD5处理后的密码
+		- name : 用户名字
+		- manager : 联系人
+		- phone : 手机
+		- qq : 
+		- wechat :
+		- province : 省份
+		- city : 城市
+		- address : 详细地址
 
 ///////////////////////////////////////////////////////////////////////
 
 
 消息：
-/getMsgs : 获取某用户收到的所有消息
-	- POST:
-		- username : 手机号
-		- usertype : "autoMaker", "garage" 二选一
+/getMsgsToAutoMaker : 获取用户汽配商的所有消息
+	- POST :
+		- username : 用户手机号
+		- password : 用户密码
 
-/sendMsgToGarage : 发消息给汽修厂
+/getMsgsToGarage : 获取用户汽修厂的所有消息
+	- POST :
+		- username : 用户手机号
+		- password : 用户密码
+
+/sendMsgToGarage : 汽配商用户发消息给汽修厂
 	- POST:
-		- senderName : 手机号
+		- senderName : 汽配商用户手机号
+		- password : 用户密码
 		- receiverName : 接受者手机号
 		- content : 消息内容
 
-/sendMsgToAutoMaker : 发消息给汽配商
+/sendMsgToAutoMaker : 汽修厂用户发消息给汽配商
 	- POST:
-		- senderName : 手机号
+		- senderName : 汽修厂用户手机号
+		- password : 用户密码
 		- receiverName : 接受者手机号
 		- content : 消息内容
 
@@ -62,22 +107,27 @@
 
 
 评论：
-/getDiscusses : 获取目标用户的所有评论
+/getDiscussesToAutoMaker ： 获取目标汽配商的所有评论
 	- POST :
 		- username : 目标手机号
-		- usertype : 目标用户类型
+
+/getDiscussesToGarage : 获取目标汽修厂的所有平
+	- POST :
+		- username : 目标手机号
 
 /sendDiscussToGarage : 向指定Garage评论
 	- POST :
-		- senderName : 发送者手机号
-		- receiverName : 接受者手机号
+		- senderName : 发送者（汽配商）手机号
+		- password : 用户密码
+		- receiverName : 接受者（汽修厂）手机号
 		- stars : 星级 1-5
 		- content ：评论内容
 
 /sendDiscussToAutoMaker : 向指定AutoMaker评论
 	- POST :
-		- senderName : 发送者手机号
-		- receiverName : 接受者手机号
+		- senderName : 发送者（汽修厂）手机号
+		- password : 用户密码
+		- receiverName : 接受者（汽配商）手机号
 		- stars : 星级 1-5
 		- content ：评论内容
 
@@ -91,7 +141,8 @@
 
 /createFavorable : 建立优惠
 	- POST :
-		- senderName : 用户手机号
+		- senderName : 用户（汽配商）手机号
+		- password : 用户密码
 		- dateFrom : 字符串形式的有效开始时间 new Date().toString
 		- dateTo : 结束时间
 		- content : 内容
@@ -108,6 +159,7 @@
 /createWanted : 新建求购信息
 	- POST :
 		- senderName : 用户手机号
+		- password : 用户密码
 		- dateFrom : 字符串形式的有效开始时间 new Date().toString
 		- dateTo : 结束时间
 		- content : 内容
@@ -116,3 +168,20 @@
 
 ///////////////////////////////////////////////////////////////////////
 
+上传图片:
+/uploadAutoMakerHeadImg : 汽配商上传头像
+	- POST :
+		- username : 用户手机号
+		- password : 用户密码
+		- img : file形式上传
+
+/uploadGarageHeadImg : 汽配商上传头像
+	- POST :
+		- username : 用户手机号
+		- password : 用户密码
+		- img : file形式上传
+
+/getHeadImg : 获取图片
+	- GET : param - ?headImgName=akjdfhalkjdfajdfa.jpg
+
+///////////////////////////////////////////////////////////////////////

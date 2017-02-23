@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>test post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<a href="http://localhost:8080/getClasses">getClasses</a>
+	</div>
+	<div>
+		<h2>create class</h2>
+		<form action='http://localhost:8080/createClass' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>bigClass </span><input name='bigClassName' id='bigClassName'><br>
+				<span>smallClass </span><input name='smallClassName' id='smallClassName'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>registerAutoMaker</h2>
+		<form action='http://localhost:8080/registerAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>certcode </span><input name='certcode' id='certcode'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>registerGarage</h2>
+		<form action='http://localhost:8080/registerGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>certcode </span><input name='certcode' id='certcode'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>loginAutoMaker</h2>
+		<form action='http://localhost:8080/loginAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>loginGarage</h2>
+		<form action='http://localhost:8080/loginGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getAutosBySmallClassId</h2>
+		<form action='http://localhost:8080/getAutosBySmallClassId' accept-charset="UTF-8">
+			<div>
+				<span>smallClassId </span><input name='smallClassId' id='smallClassId'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getAutoMakerDetailById</h2>
+		<form action='http://localhost:8080/getAutoMakerDetailById' accept-charset="UTF-8">
+			<div>
+				<span>autoMakerDetailId </span><input name='autoMakerDetailId' id='autoMakerDetailId'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>updateAutoMakerDetail</h2>
+		<form action='http://localhost:8080/updateAutoMakerDetail' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>name </span><input name='name' id='name'><br>
+				<span>manager </span><input name='manager' id='manager'><br>
+				<span>phone </span><input name='phone' id='phone'><br>
+				<span>qq </span><input name='qq' id='qq'><br>
+				<span>wechat </span><input name='wechat' id='wechat'><br>
+				<span>province </span><input name='province' id='province'><br>
+				<span>city </span><input name='city' id='city'><br>
+				<span>address </span><input name='address' id='address'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>updateGarageDetail</h2>
+		<form action='http://localhost:8080/updateGarageDetail' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>name </span><input name='name' id='name'><br>
+				<span>manager </span><input name='manager' id='manager'><br>
+				<span>phone </span><input name='phone' id='phone'><br>
+				<span>qq </span><input name='qq' id='qq'><br>
+				<span>wechat </span><input name='wechat' id='wechat'><br>
+				<span>province </span><input name='province' id='province'><br>
+				<span>city </span><input name='city' id='city'><br>
+				<span>address </span><input name='address' id='address'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getMsgsToAutoMaker</h2>
+		<form action='http://localhost:8080/getMsgsToAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getMsgsToGarage</h2>
+		<form action='http://localhost:8080/getMsgsToGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+				<span>password </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>sendMsgToGarage</h2>
+		<form action='http://localhost:8080/sendMsgToGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>receiverName </span><input name='receiverName' id='receiverName'><br>
+				<span>content </span><input name='content' id='content'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>sendMsgToAutoMaker</h2>
+		<form action='http://localhost:8080/sendMsgToAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>receiverName </span><input name='receiverName' id='receiverName'><br>
+				<span>content </span><input name='content' id='content'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getDiscussesToAutoMaker</h2>
+		<form action='http://localhost:8080/getDiscussesToAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getDiscussesToGarage</h2>
+		<form action='http://localhost:8080/getDiscussesToGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>username </span><input name='username' id='username'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>sendDiscussToGarage</h2>
+		<form action='http://localhost:8080/sendDiscussToGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>receiverName </span><input name='receiverName' id='receiverName'><br>
+				<span>stars </span><input name='stars' id='stars'><br>
+				<span>content </span><input name='content' id='content'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>sendDiscussToAutoMaker</h2>
+		<form action='http://localhost:8080/sendDiscussToAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>receiverName </span><input name='receiverName' id='receiverName'><br>
+				<span>stars </span><input name='stars' id='stars'><br>
+				<span>content </span><input name='content' id='content'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<a href="http://localhost:8080/getAllFavorable">getAllFavorable</a>
+	<div>
+		<h2>createFavorable</h2>
+		<form action='http://localhost:8080/createFavorable' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>dateFrom </span><input name='dateFrom' id='dateFrom'><br>
+				<span>dateTo </span><input name='dateTo' id='dateTo'><br>
+				<span>content </span><input name='content' id='content'><br>
+				<span>classIds </span><input name='classIds' id='classIds'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<a href="http://localhost:8080/getAllWanted">getAllWanted</a>
+	<div>
+		<h2>createWanted</h2>
+		<form action='http://localhost:8080/createWanted' method='post' accept-charset="UTF-8">
+			<div>
+				<span>senderName </span><input name='senderName' id='senderName'><br>
+				<span>password </span><input name='password' id='password'><br>
+				<span>dateFrom </span><input name='dateFrom' id='dateFrom'><br>
+				<span>dateTo </span><input name='dateTo' id='dateTo'><br>
+				<span>content </span><input name='content' id='content'><br>
+				<span>classIds </span><input name='classIds' id='classIds'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>getHeadImg</h2>
+		<form action='http://localhost:8080/getHeadImg' accept-charset="UTF-8">
+			<div>
+				<span>headImgName</span><input name='headImgName' id='headImgName'><br>
+			</div>
+			<div>
+				<button>submit</button>
+			</div>
+		</form>
+	</div>
+
+	<div>
+		<h2>uploadAutoMakerHeadImg</h2>
+		<form action="http://localhost:8080/uploadAutoMakerHeadImg" method="post" enctype="multipart/form-data">
+     		<input type="file" name="img" /><br/>
+     		<span>username </span><input name='username' id='username'><br>
+			<span>password </span><input name='password' id='password'><br>
+     		<button>submit</button>
+ 		</form>
+	</div>
+	<div>
+		<h2>uploadGarageHeadImg</h2>
+		<form action="http://localhost:8080/uploadGarageHeadImg" method="post" enctype="multipart/form-data">
+     		<input type="file" name="img" /><br/>
+     		<span>username </span><input name='username' id='username'><br>
+			<span>password </span><input name='password' id='password'><br>
+     		<button>submit</button>
+ 		</form>
+	</div>
+</body>
+</html>

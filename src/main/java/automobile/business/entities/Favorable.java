@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author CrazeWong
- * ÓÅ»İĞÅÏ¢
+ * ä¼˜æƒ ä¿¡æ¯
  */
 @Entity(name="Favorable")
 public class Favorable implements Serializable {

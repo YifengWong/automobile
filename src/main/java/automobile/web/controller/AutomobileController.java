@@ -36,9 +36,14 @@ public class AutomobileController {
 	
 	private AnnotationConfigApplicationContext ctx = automobile.util.config.DBCtx.getDBCtx();
 
-	@RequestMapping(value = "/createClass", method = RequestMethod.GET)
-	public String createClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "createClass";
+	@RequestMapping(value = "/testPost", method = RequestMethod.GET)
+	public String testPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return "testPost";
+	}
+	
+	@RequestMapping(value = "/postPage", method = RequestMethod.GET)
+	public String postPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		return "postPage";
 	}
 	
 }

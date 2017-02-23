@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * @author CrazeWong
- * ÆûĞŞ³§ĞÅÏ¢
+ * æ±½ä¿®å‚ç”¨æˆ·ä¿¡æ¯
  *
  */
 @Entity(name="GarageDetail")
@@ -65,6 +65,10 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 	@JsonIgnore
     private Integer likes = 0;
 	
+	@Column(nullable = true)
+	@JsonIgnore
+	private String headImgName = null;
+	
 	@OneToMany(mappedBy="garageDetail", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<DiscussToAutoMaker> discussToAutoMakerSet = new HashSet<DiscussToAutoMaker>();
@@ -81,7 +85,7 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 	@JsonIgnore
 	private Set<MsgToGarage> msgToGarageSet = new HashSet<MsgToGarage>();
 	
-	// µ¥ÏòÒ»¶Ô¶à£¬ÊÕ²Ø
+	// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Ô¶à£¬ï¿½Õ²ï¿½
 	@OneToMany(fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<AutoMakerDetail> autoMakerDetailSet = new HashSet<AutoMakerDetail>();
@@ -106,6 +110,7 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 		this.city = city;
 		this.address = address;
 		this.likes = likes;
+		this.headImgName = "";
 	}
 
 
@@ -115,14 +120,15 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.managerName = "1";
-		this.phone = "1";
-		this.qq = "1";
-		this.wechat = "1";
-		this.province = "1";
-		this.city = "1";
-		this.address = "1";
+		this.managerName = "";
+		this.phone = "";
+		this.qq = "";
+		this.wechat = "";
+		this.province = "";
+		this.city = "";
+		this.address = "";
 		this.likes = 0;
+		this.headImgName = "";
 	}
 
 	
@@ -293,6 +299,16 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 	}
 
 
+	public String getHeadImgName() {
+		return headImgName;
+	}
+
+
+	public void setHeadImgName(String headImgName) {
+		this.headImgName = headImgName;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -343,6 +359,8 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 		builder.append(address);
 		builder.append("\",\"likes\":\"");
 		builder.append(likes);
+		builder.append("\",\"headImgName\":\"");
+		builder.append(headImgName);
 		builder.append("\",\"autoMakerDetailSet\":\"");
 		builder.append(autoMakerDetailSet);
 		builder.append("\"}");

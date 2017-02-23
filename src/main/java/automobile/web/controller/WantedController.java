@@ -18,7 +18,7 @@ import automobile.business.services.ClassService;
 import automobile.business.services.UserDetailService;
 import automobile.business.services.WantedService;
 import automobile.util.ResultObject;
-import automobile.util.config.StaticConfig;
+import automobile.util.config.StaticString;
 
 @Controller
 public class WantedController {
@@ -34,7 +34,7 @@ public class WantedController {
 	public void getAllWanted(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_WANTED, wantedService.findAllWanted())
+				StaticString.RESULT_SUCC, StaticString.WANTED_ALL, wantedService.findAllWanted())
 				.getJsonString());
 	}
 	
@@ -42,23 +42,29 @@ public class WantedController {
 	public void createWanted(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		String senderName = request.getParameter("senderName");
+		String password = request.getParameter("password");
 		String dateFrom = request.getParameter("dateFrom");
 		String dateTo = request.getParameter("dateTo");
 		String content = request.getParameter("content");
 		String[] classIds = request.getParameter("classIds").split(",");// ID
 		
-		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(senderName);
+		ResultObject userRe = userDetailService.checkGarageDetail(senderName, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		
+		GarageDetail garageDetail = (GarageDetail) userRe.getObject();
 		Wanted wanted = new Wanted(garageDetail, dateFrom, dateTo, content);
 		
 		Set<SmallClass> smallClasses = new HashSet<SmallClass>();
-		
 		for (String s : classIds) {
 			smallClasses.add(classService.findSmallClasById(Integer.valueOf(s)));
 		}
 		
 		wantedService.createWanted(wanted, smallClasses);
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CREATE_WANTED_SUCC, null)
+				StaticString.RESULT_SUCC, StaticString.WANTED_CREATE_SUCC, null)
 				.getJsonString());
 		
 	}

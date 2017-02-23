@@ -33,7 +33,7 @@ import automobile.business.services.MsgService;
 import automobile.business.services.UserDetailService;
 import automobile.business.services.WantedService;
 import automobile.util.ResultObject;
-import automobile.util.config.StaticConfig;
+import automobile.util.config.StaticString;
 
 @Controller
 public class TestController {
@@ -115,11 +115,11 @@ public class TestController {
 		
 		if (user == null) {
 			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_FAIL, "username wrong", null).getJsonString());
+					StaticString.RESULT_FAIL, "username wrong", null).getJsonString());
 		} else {
 
 				response.getWriter().write(new ResultObject(
-						StaticConfig.STR_RESULT_SUCC, "OK", user).getJsonString());
+						StaticString.RESULT_SUCC, "OK", user).getJsonString());
 		}
 	}
 	

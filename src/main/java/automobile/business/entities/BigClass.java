@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 /**
  * @author CrazeWong
- * ´ó·ÖÀà£¬°üÀ¨³µÀà£¨Å·ÃÀ¡¢ÈÕÏµ£©£¬µ¥Ïî¼şµÈ¡£
+ * å¤§åˆ†ç±»
  *
  */
 @Entity(name="BigClass")

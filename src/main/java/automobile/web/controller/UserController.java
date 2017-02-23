@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import automobile.business.entities.AbstractUserDetail;
 import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.GarageDetail;
 import automobile.business.entities.SmallClass;
 import automobile.business.services.ClassService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
-import automobile.util.config.StaticConfig;
+import automobile.util.config.StaticString;
 
 @Controller
 public class UserController {
@@ -28,75 +27,76 @@ public class UserController {
 
 	private ClassService classService = ctx.getBean(ClassService.class);
 	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public void register(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/registerAutoMaker", method = RequestMethod.POST)
+	public void registerAutoMaker(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String certcode = request.getParameter("certCode");
-		String usertype = request.getParameter("userType");
 		
 		// certcode TODO use Redis here
 		// TODO check certCode
 		boolean certCodeFlag = true;
-		
-		
 		if (!certCodeFlag) {
 			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_WRONG_CERTCODE, null)
+					StaticString.RESULT_FAIL, StaticString.USER_WRONG_CERTCODE, null)
 					.getJsonString());
 			return;
 		}
-		// TODO: 查重
-		if (usertype.equals(StaticConfig.TYPE_AUTOMAKER)) {
-			AutoMakerDetail user = new AutoMakerDetail(username, password, "");
-			userDetailService.createAutoMakerDetail(user, null);
-		} else if (usertype.equals(StaticConfig.TYPE_GARAGE)) {
-			GarageDetail user = new GarageDetail(username, password, "");
-			userDetailService.createGarageDetail(user);
-		} else {
-			// TODO
-		}
 		
+		// TODO: 查重
+		AutoMakerDetail user = new AutoMakerDetail(username, password, "");
+		userDetailService.createAutoMakerDetail(user, null);
 		
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_REGISTER_SUCC, null)
+				StaticString.RESULT_SUCC, StaticString.USER_REGISTER_SUCC, null)
 				.getJsonString());
 		
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void login(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+	@RequestMapping(value = "/registerGarage", method = RequestMethod.POST)
+	public void registerGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String usertype = request.getParameter("usertype");
+		String certcode = request.getParameter("certCode");
 		
-		AbstractUserDetail user = null;
-		
-		if (usertype.equals("autoMaker")) {
-			user = userDetailService.findAutoMakerDetailByUserName(username);
-		} else if (usertype.equals("garage")) {
-			user = userDetailService.findGarageDetailByUserName(username);
-		}
-		
-		if (user == null) {
+		// certcode TODO use Redis here
+		// TODO check certCode
+		boolean certCodeFlag = true;
+		if (!certCodeFlag) {
 			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_USERNAME, null)
+					StaticString.RESULT_FAIL, StaticString.USER_WRONG_CERTCODE, null)
 					.getJsonString());
-		} else {
-			if (!user.getPassword().equals(password)) {
-				response.getWriter().write(new ResultObject(
-						StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_PASSWORD, null)
-						.getJsonString());
-			} else {
-				response.getWriter().write(new ResultObject(
-						StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_LOGIN_SUCC, user)
-						.getJsonString());
-			}
+			return;
 		}
+		// TODO: 查重
+		GarageDetail user = new GarageDetail(username, password, "");
+		userDetailService.createGarageDetail(user);
 		
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.USER_REGISTER_SUCC, null)
+				.getJsonString());
 	}
+	
+	@RequestMapping(value = "/loginAutoMaker", method = RequestMethod.POST)
+	public void loginAutoMaker(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+	
+		response.getWriter().write(userDetailService.checkAutoMakerDetail(username, password).getJsonString());
+	}
+	
+	@RequestMapping(value = "/loginGarage", method = RequestMethod.POST)
+	public void loginGarage(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+	
+		response.getWriter().write(userDetailService.checkGarageDetail(username, password).getJsonString());
+	}
+
 	
 	@RequestMapping(value = "/getAutosBySmallClassId")
 	public void getAutosBySmallClassId(@RequestParam(value="smallClassId", required=true) String smallClassId, 
@@ -107,7 +107,7 @@ public class UserController {
 		List<AutoMakerDetail> autos = userDetailService.findAllAutoMakerDetailBySmallClass(smallClass);
 		
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CLASS_AUTOMAKERS, autos)
+				StaticString.RESULT_SUCC, StaticString.CLASS_AUTOMAKERS, autos)
 				.getJsonString());
 	}
 	
@@ -119,10 +119,80 @@ public class UserController {
 		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailById(Integer.valueOf(autoMakerDetailId));
 		
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_AUTOMAKER, autoMakerDetail)
+				StaticString.RESULT_SUCC, StaticString.AUTOMAKER_DETAIL, autoMakerDetail)
 				.getJsonString());
 		
 	}
 	
-	// TODO Set detail
+	// TODO update detail
+	@RequestMapping(value = "/updateAutoMakerDetail", method = RequestMethod.POST)
+	public void updateAutoMakerDetail(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		String name = request.getParameter("name");
+		String manager = request.getParameter("manager");
+		String phone = request.getParameter("phone");
+		String qq = request.getParameter("qq");
+		String wechat = request.getParameter("wechat");
+		String province = request.getParameter("province");
+		String city = request.getParameter("city");
+		String address = request.getParameter("address");
+	
+		ResultObject userRe = userDetailService.checkAutoMakerDetail(username, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		
+		AutoMakerDetail autoMakerDetail = (AutoMakerDetail) userRe.getObject();
+		autoMakerDetail.setName(name);
+		autoMakerDetail.setManagerName(manager);
+		autoMakerDetail.setPhone(phone);
+		autoMakerDetail.setQq(qq);
+		autoMakerDetail.setWechat(wechat);
+		autoMakerDetail.setProvince(province);
+		autoMakerDetail.setCity(city);
+		autoMakerDetail.setAddress(address);
+		userDetailService.updateAutoMakerDetail(autoMakerDetail);
+		response.getWriter().write(userRe.getJsonString());
+		
+	}
+	
+	@RequestMapping(value = "/updateGarageDetail", method = RequestMethod.POST)
+	public void updateGarageDetail(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		
+		String name = request.getParameter("name");
+		String manager = request.getParameter("manager");
+		String phone = request.getParameter("phone");
+		String qq = request.getParameter("qq");
+		String wechat = request.getParameter("wechat");
+		String province = request.getParameter("province");
+		String city = request.getParameter("city");
+		String address = request.getParameter("address");
+	
+		ResultObject userRe = userDetailService.checkGarageDetail(username, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		
+		GarageDetail garageDetail = (GarageDetail) userRe.getObject();
+		garageDetail.setName(name);
+		garageDetail.setManagerName(manager);
+		garageDetail.setPhone(phone);
+		garageDetail.setQq(qq);
+		garageDetail.setWechat(wechat);
+		garageDetail.setProvince(province);
+		garageDetail.setCity(city);
+		garageDetail.setAddress(address);
+		userDetailService.updateGarageDetail(garageDetail);
+		response.getWriter().write(userRe.getJsonString());
+		
+	}
+
+	
+	
 }

@@ -22,6 +22,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * @author CrazeWong
+ * 持久层配置文件，类配置方法
+ */
 @Configuration
 @ComponentScan({ "automobile.business" })
 @EnableTransactionManagement
@@ -80,7 +84,7 @@ public class PersistenceJPAConfig {
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         // hibernateProperties.setProperty("hibernate.globally_quoted_identifiers", "true");
         
-        // use connection pool
+        // 使用c3p0连接池
         hibernateProperties.setProperty("hibernate.connection.driver_class", env.getProperty("jdbc.driverClassName"));
         hibernateProperties.setProperty("hibernate.connection.url", env.getProperty("jdbc.url"));
         hibernateProperties.setProperty("hibernate.connection.username", env.getProperty("jdbc.user"));

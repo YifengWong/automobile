@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author CrazeWong
+ * 求购信息
+ */
 @Entity(name="Wanted")
 public class Wanted implements Serializable {
 

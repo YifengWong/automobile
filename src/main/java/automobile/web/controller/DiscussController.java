@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import automobile.business.entities.AbstractUserDetail;
 import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.DiscussToAutoMaker;
 import automobile.business.entities.DiscussToGarage;
@@ -19,7 +18,7 @@ import automobile.business.entities.GarageDetail;
 import automobile.business.services.DiscussService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
-import automobile.util.config.StaticConfig;
+import automobile.util.config.StaticString;
 
 @Controller
 public class DiscussController {
@@ -29,61 +28,67 @@ public class DiscussController {
 	
 	private DiscussService discussService = ctx.getBean(DiscussService.class);
 	
-	@RequestMapping(value = "/getDiscusses", method = RequestMethod.POST)
-	public void getDiscusses(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/getDiscussesToAutoMaker", method = RequestMethod.POST)
+	public void getDiscussesToAutoMaker(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
-		String username = request.getParameter("username");
-		String usertype = request.getParameter("usertype");
-
-		AbstractUserDetail user = null;
+		String autoMakerName = request.getParameter("username");
+		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(autoMakerName);
 		
-		if (usertype.equals("autoMaker")) {
-			user = userDetailService.findAutoMakerDetailByUserName(username);
-		} else if (usertype.equals("garage")) {
-			user = userDetailService.findGarageDetailByUserName(username);
-		}
-		
-		if (user == null) {
+		if (autoMakerDetail == null) {
 			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_FAIL, StaticConfig.MSG_WRONG_USERNAME, null)
+					StaticString.RESULT_FAIL, StaticString.USER_WRONG_USERNAME, null)
 					.getJsonString());
 			return;
 		}
-
-		if (user instanceof AutoMakerDetail) {
-			List<DiscussToAutoMaker> discusses = discussService.findAllDiscussToAutoMaker((AutoMakerDetail) user);
-			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_DISCUSSES, discusses)
-					.getJsonString());
-			return;
-		} else if (user instanceof GarageDetail) {
-			List<DiscussToGarage> discusses = discussService.findAllDiscussToGarage((GarageDetail) user);
-			response.getWriter().write(new ResultObject(
-					StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_DISCUSSES, discusses)
-					.getJsonString());
-			return;
-		}
-		
+		List<DiscussToAutoMaker> discusses = discussService.findAllDiscussToAutoMaker(autoMakerDetail);
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.DISCUSS_ALL, discusses)
+				.getJsonString());
 	}
 	
-	@RequestMapping(value = "/sendDiscussToGarage", method = RequestMethod.POST)
-	public void sendMsgToGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/getDiscussesToGarage", method = RequestMethod.POST)
+	public void getDiscussesToGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
-		String senderName = request.getParameter("senderName");
-		String receiverName = request.getParameter("receiverName");
+		String garageName = request.getParameter("username");
+		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(garageName);
+		
+		if (garageDetail == null) {
+			response.getWriter().write(new ResultObject(
+					StaticString.RESULT_FAIL, StaticString.USER_WRONG_USERNAME, null)
+					.getJsonString());
+			return;
+		}
+		List<DiscussToGarage> discusses = discussService.findAllDiscussToGarage(garageDetail);
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.DISCUSS_ALL, discusses)
+				.getJsonString());
+		return;
+	}
+
+	
+	@RequestMapping(value = "/sendDiscussToGarage", method = RequestMethod.POST)
+	public void sendDiscussToGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
+		String autoMakerName = request.getParameter("senderName");
+		String password = request.getParameter("password");
+		String garageName = request.getParameter("receiverName");
 		String nowTime = new Date().toString();
 		Integer stars = Integer.valueOf(request.getParameter("stars"));
 		String content = request.getParameter("content");
 		
-		
-		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(senderName);
-		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(receiverName);
+		ResultObject userRe = userDetailService.checkAutoMakerDetail(autoMakerName, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		AutoMakerDetail autoMakerDetail = (AutoMakerDetail) userRe.getObject();
+		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(garageName);
 		
 		DiscussToGarage discuss = new DiscussToGarage(autoMakerDetail, garageDetail, nowTime, stars, content);
 		discussService.createDiscussToGarage(discuss);
 				
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_SENDDIS_SUCC, null)
+				StaticString.RESULT_SUCC, StaticString.DISCUSS_SUCC, null)
 				.getJsonString());
 		
 	}
@@ -91,20 +96,27 @@ public class DiscussController {
 	@RequestMapping(value = "/sendDiscussToAutoMaker", method = RequestMethod.POST)
 	public void sendDiscussToAutoMaker(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
-		String senderName = request.getParameter("senderName");
-		String receiverName = request.getParameter("receiverName");
+		String garageName = request.getParameter("senderName");
+		String password = request.getParameter("password");
+		String autoMakerName = request.getParameter("receiverName");
 		String nowTime = new Date().toString();
 		Integer stars = Integer.valueOf(request.getParameter("stars"));
 		String content = request.getParameter("content");
 		
-		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(receiverName);
-		GarageDetail garageDetail = userDetailService.findGarageDetailByUserName(senderName);
+		ResultObject userRe = userDetailService.checkGarageDetail(garageName, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		
+		GarageDetail garageDetail = (GarageDetail) userRe.getObject();
+		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(autoMakerName);
 
 		DiscussToAutoMaker discuss = new DiscussToAutoMaker(autoMakerDetail, garageDetail, nowTime, stars, content);
 		discussService.createDiscussToAutoMaker(discuss);
 		
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_SENDDIS_SUCC, null)
+				StaticString.RESULT_SUCC, StaticString.DISCUSS_SUCC, null)
 				.getJsonString());
 	}
 }

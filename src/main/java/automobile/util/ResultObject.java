@@ -8,8 +8,9 @@ import automobile.business.entities.GarageDetail;
 
 /**
  * @author CrazeWong
+ * 用于表达Controller返回值json内容
  * 
- * key��ϵ
+ * key关系
  * bigClass - smallClasses
  * smallClass - 
  * autosmiddle - autoMaker
@@ -23,7 +24,7 @@ import automobile.business.entities.GarageDetail;
  * favorable - automaker
  *
  *
- * full��ϵ
+ * full关系
  * bigClass - smallClasses
  * smallClass - 
  * autosmiddle - smallClass

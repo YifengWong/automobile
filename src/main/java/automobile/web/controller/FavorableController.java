@@ -18,7 +18,7 @@ import automobile.business.services.ClassService;
 import automobile.business.services.FavorableService;
 import automobile.business.services.UserDetailService;
 import automobile.util.ResultObject;
-import automobile.util.config.StaticConfig;
+import automobile.util.config.StaticString;
 
 @Controller
 public class FavorableController {
@@ -34,7 +34,7 @@ public class FavorableController {
 	public void getAllFavorable(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_ALL_FAVORABLE, favorableService.findAllFavorable())
+				StaticString.RESULT_SUCC, StaticString.FAVORABLE_ALL, favorableService.findAllFavorable())
 				.getJsonString());
 	}
 	
@@ -42,12 +42,19 @@ public class FavorableController {
 	public void createFavorable(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		String senderName = request.getParameter("senderName");
+		String password = request.getParameter("password");
 		String dateFrom = request.getParameter("dateFrom");
 		String dateTo = request.getParameter("dateTo");
 		String content = request.getParameter("content");
 		String[] classIds = request.getParameter("classIds").split(",");// ID
 		
-		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailByUserName(senderName);
+		ResultObject userRe = userDetailService.checkAutoMakerDetail(senderName, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		AutoMakerDetail autoMakerDetail = (AutoMakerDetail) userRe.getObject();
+		
 		Favorable favorable = new Favorable(autoMakerDetail, dateFrom, dateTo, content);
 		
 		Set<SmallClass> smallClasses = new HashSet<SmallClass>();
@@ -58,7 +65,7 @@ public class FavorableController {
 		
 		favorableService.createFavorable(favorable, smallClasses);
 		response.getWriter().write(new ResultObject(
-				StaticConfig.STR_RESULT_SUCC, StaticConfig.MSG_CREATE_FAVORABLE_SUCC, null)
+				StaticString.RESULT_SUCC, StaticString.FAVORABLE_CREATE_SUCC, null)
 				.getJsonString());
 		
 	}
