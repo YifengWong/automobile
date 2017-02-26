@@ -16,7 +16,7 @@ public class GarageDetailDaoImpl extends AbstractJpaDAO<GarageDetail> implements
     }
 
     // API
-	public GarageDetail findOne(String username) {
+	public GarageDetail findOneByUserName(String username) {
 		GarageDetail garageDetail = null;
 		try {
 			garageDetail = (GarageDetail) this.getEntityManager()

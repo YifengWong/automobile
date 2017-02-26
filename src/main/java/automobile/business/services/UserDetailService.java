@@ -61,7 +61,7 @@ public class UserDetailService {
      * @return
      * 根据id获取汽配商用户信息
      */
-    public AutoMakerDetail findAutoMakerDetailById(final Integer id) {
+    public AutoMakerDetail findAutoMakerDetailById(final String id) {
     	return autoMakerDetailDao.findOne(id);
     }
     
@@ -78,7 +78,7 @@ public class UserDetailService {
      * @return
      * 根据id获取汽修厂用户信息
      */
-    public GarageDetail findGarageDetailById(final Integer id) {
+    public GarageDetail findGarageDetailById(final String id) {
     	return garageDetailDao.findOne(id);
     }
     

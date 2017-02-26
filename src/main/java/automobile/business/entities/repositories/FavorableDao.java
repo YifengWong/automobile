@@ -5,7 +5,7 @@ import java.util.List;
 import automobile.business.entities.Favorable;
 
 public interface FavorableDao {
-	Favorable findOne(Integer id);
+	Favorable findOne(String id);
 
     List<Favorable> findAll();
 
@@ -15,6 +15,6 @@ public interface FavorableDao {
 
     void delete(Favorable entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
 
 }

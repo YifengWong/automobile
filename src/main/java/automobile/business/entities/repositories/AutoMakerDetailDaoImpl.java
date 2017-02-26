@@ -16,7 +16,7 @@ public class AutoMakerDetailDaoImpl extends AbstractJpaDAO<AutoMakerDetail> impl
     }
 
     // API
-	public AutoMakerDetail findOne(String username) {
+	public AutoMakerDetail findOneByUserName(String username) {
 		AutoMakerDetail auto = null;
 		try {
 			auto = (AutoMakerDetail) this.getEntityManager()

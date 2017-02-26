@@ -7,7 +7,7 @@ import automobile.business.entities.MsgToAutoMaker;
 
 public interface MsgToAutoMakerDao {
 	
-	MsgToAutoMaker findOne(Integer id);
+	MsgToAutoMaker findOne(String id);
 
     List<MsgToAutoMaker> findAll();
 
@@ -17,7 +17,7 @@ public interface MsgToAutoMakerDao {
 
     void delete(MsgToAutoMaker entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
     List<MsgToAutoMaker> findMsgsToAutoMaker(AutoMakerDetail autoMakerDetail);

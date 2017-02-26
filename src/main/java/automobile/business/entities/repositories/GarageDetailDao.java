@@ -6,7 +6,7 @@ import automobile.business.entities.GarageDetail;
 
 public interface GarageDetailDao {
 
-	GarageDetail findOne(Integer id);
+	GarageDetail findOne(String id);
 
     List<GarageDetail> findAll();
 
@@ -16,9 +16,9 @@ public interface GarageDetailDao {
 
     void delete(GarageDetail entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
-    GarageDetail findOne(String username);
+    GarageDetail findOneByUserName(String username);
 
 }

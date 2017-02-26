@@ -6,7 +6,7 @@ import automobile.business.entities.BigClass;
 
 public interface BigClassDao {
 
-	BigClass findOne(Integer id);
+	BigClass findOne(String id);
 
     List<BigClass> findAll();
 
@@ -16,8 +16,8 @@ public interface BigClassDao {
 
     void delete(BigClass entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
-    BigClass findOne(String name);
+    BigClass findOneByName(String name);
 }

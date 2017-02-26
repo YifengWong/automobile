@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -27,8 +29,9 @@ public class Wanted implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer wantedId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String wantedId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="garageDetailId")
@@ -63,12 +66,12 @@ public class Wanted implements Serializable {
 	}
 
 
-	public Integer getWantedId() {
+	public String getWantedId() {
 		return wantedId;
 	}
 
 
-	public void setWantedId(Integer wantedId) {
+	public void setWantedId(String wantedId) {
 		this.wantedId = wantedId;
 	}
 

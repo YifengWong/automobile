@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * @author CrazeWong
  * 给汽修厂的消息
@@ -23,8 +25,10 @@ public class MsgToGarage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer msgToGarageId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String msgToGarageId = null;
+
 
 	// from
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -70,6 +74,14 @@ public class MsgToGarage implements Serializable {
 	}
 
 
+	public String getMsgToGarageId() {
+		return msgToGarageId;
+	}
+
+	public void setMsgToGarageId(String msgToGarageId) {
+		this.msgToGarageId = msgToGarageId;
+	}
+	
 	public String getContent() {
 		return content;
 	}

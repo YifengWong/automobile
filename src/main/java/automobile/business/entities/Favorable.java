@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -27,8 +29,9 @@ public class Favorable implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer favorableId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String favorableId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="autoMakerDetailId")
@@ -63,12 +66,12 @@ public class Favorable implements Serializable {
 	}
 
 
-	public Integer getFavorableId() {
+	public String getFavorableId() {
 		return favorableId;
 	}
 
 
-	public void setFavorableId(Integer favorableId) {
+	public void setFavorableId(String favorableId) {
 		this.favorableId = favorableId;
 	}
 

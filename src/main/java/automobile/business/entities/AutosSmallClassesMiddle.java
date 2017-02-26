@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -24,8 +26,10 @@ public class AutosSmallClassesMiddle implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer autosSmallClassesMiddleId = null;
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String autosSmallClassesMiddleId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="smallClassId")
@@ -41,6 +45,14 @@ public class AutosSmallClassesMiddle implements Serializable {
 		super();
 	}
 	
+	public String getAutosSmallClassesMiddleId() {
+		return autosSmallClassesMiddleId;
+	}
+
+	public void setAutosSmallClassesMiddleId(String autosSmallClassesMiddleId) {
+		this.autosSmallClassesMiddleId = autosSmallClassesMiddleId;
+	}
+
 	public AutosSmallClassesMiddle(final SmallClass smallClass, final AutoMakerDetail autoMakerDetail) {
 		super();
 		this.smallClass = smallClass;

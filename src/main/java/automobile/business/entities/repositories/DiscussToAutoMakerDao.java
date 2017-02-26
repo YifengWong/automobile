@@ -6,7 +6,7 @@ import automobile.business.entities.AutoMakerDetail;
 import automobile.business.entities.DiscussToAutoMaker;
 
 public interface DiscussToAutoMakerDao {
-	DiscussToAutoMaker findOne(Integer id);
+	DiscussToAutoMaker findOne(String id);
 
     List<DiscussToAutoMaker> findAll();
 
@@ -16,7 +16,7 @@ public interface DiscussToAutoMakerDao {
 
     void delete(DiscussToAutoMaker entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
     List<DiscussToAutoMaker> findDiscussesToAutoMaker(AutoMakerDetail autoMakerDetail);

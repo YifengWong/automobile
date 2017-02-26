@@ -103,7 +103,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		
-		SmallClass smallClass = classService.findSmallClasById(Integer.valueOf(smallClassId));
+		SmallClass smallClass = classService.findSmallClasById(smallClassId);
 		List<AutoMakerDetail> autos = userDetailService.findAllAutoMakerDetailBySmallClass(smallClass);
 		
 		response.getWriter().write(new ResultObject(
@@ -116,7 +116,7 @@ public class UserController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/json;charset=UTF-8");
 		
-		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailById(Integer.valueOf(autoMakerDetailId));
+		AutoMakerDetail autoMakerDetail = userDetailService.findAutoMakerDetailById(autoMakerDetailId);
 		
 		response.getWriter().write(new ResultObject(
 				StaticString.RESULT_SUCC, StaticString.AUTOMAKER_DETAIL, autoMakerDetail)

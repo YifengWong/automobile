@@ -7,7 +7,7 @@ import automobile.business.entities.SmallClass;
 
 public interface SmallClassDao {
 
-	SmallClass findOne(Integer id);
+	SmallClass findOne(String id);
 
     List<SmallClass> findAll();
 
@@ -17,11 +17,11 @@ public interface SmallClassDao {
 
     void delete(SmallClass entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
     public List<SmallClass> findAllByBigClass(final BigClass bigClass);
     
-    SmallClass findOne(String name);
+    SmallClass findOneByName(String name);
 
 }

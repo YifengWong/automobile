@@ -6,7 +6,7 @@ import automobile.business.entities.DiscussToGarage;
 import automobile.business.entities.GarageDetail;
 
 public interface DiscussToGarageDao {
-	DiscussToGarage findOne(Integer id);
+	DiscussToGarage findOne(String id);
 
     List<DiscussToGarage> findAll();
 
@@ -16,7 +16,7 @@ public interface DiscussToGarageDao {
 
     void delete(DiscussToGarage entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
     List<DiscussToGarage> findDiscussesToGarage(GarageDetail garageDetail);

@@ -68,7 +68,7 @@ public class ClassService {
 	 * @return
 	 * 根据id获取大分类
 	 */
-	public BigClass findBigClassById(Integer id) {
+	public BigClass findBigClassById(String id) {
 		return bigClassDao.findOne(id);
 	}
 	
@@ -86,7 +86,7 @@ public class ClassService {
 	 * @return
 	 * 根据id获取小分类
 	 */
-	public SmallClass findSmallClasById(Integer id) {
+	public SmallClass findSmallClasById(String id) {
 		return smallClassDao.findOne(id);
 	}
 	

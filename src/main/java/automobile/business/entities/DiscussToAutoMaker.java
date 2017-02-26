@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 /**
  * @author CrazeWong
@@ -23,8 +25,9 @@ public class DiscussToAutoMaker implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer discussToAutoMakerId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String discussToAutoMakerId = null;
 	
 	// to 
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
@@ -58,12 +61,12 @@ public class DiscussToAutoMaker implements Serializable {
 	}
 	
 	
-	public Integer getDiscussToAutoMakerId() {
+	public String getDiscussToAutoMakerId() {
 		return discussToAutoMakerId;
 	}
 
 
-	public void setDiscussToAutoMakerId(Integer discussToAutoMakerId) {
+	public void setDiscussToAutoMakerId(String discussToAutoMakerId) {
 		this.discussToAutoMakerId = discussToAutoMakerId;
 	}
 

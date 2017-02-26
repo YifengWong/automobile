@@ -7,7 +7,7 @@ import automobile.business.entities.MsgToGarage;
 
 public interface MsgToGarageDao {
 
-	MsgToGarage findOne(Integer id);
+	MsgToGarage findOne(String id);
 
     List<MsgToGarage> findAll();
 
@@ -17,7 +17,7 @@ public interface MsgToGarageDao {
 
     void delete(MsgToGarage entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
     List<MsgToGarage> findMsgsToGarage(GarageDetail garageDetail);

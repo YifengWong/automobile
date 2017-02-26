@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -20,8 +22,9 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer garageDetailId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String garageDetailId = null;
 	
 	@Column(nullable = false, unique = true)
 	private String username = null;
@@ -199,12 +202,12 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 	}
 
 
-	public Integer getGarageDetailId() {
+	public String getGarageDetailId() {
 		return garageDetailId;
 	}
 
 
-	public void setGarageDetailId(Integer garageDetailId) {
+	public void setGarageDetailId(String garageDetailId) {
 		this.garageDetailId = garageDetailId;
 	}
 	

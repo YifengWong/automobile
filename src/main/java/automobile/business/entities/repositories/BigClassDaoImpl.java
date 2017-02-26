@@ -16,7 +16,7 @@ public class BigClassDaoImpl extends AbstractJpaDAO<BigClass> implements BigClas
     }
 
     // API
-	public BigClass findOne(String name) {
+	public BigClass findOneByName(String name) {
 		BigClass bigClass = null;
 		try {
 			bigClass = (BigClass) this.getEntityManager()

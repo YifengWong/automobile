@@ -6,7 +6,7 @@ import automobile.business.entities.Wanted;
 
 public interface WantedDao {
 	
-	Wanted findOne(Integer id);
+	Wanted findOne(String id);
 
     List<Wanted> findAll();
 
@@ -16,6 +16,6 @@ public interface WantedDao {
 
     void delete(Wanted entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
 
 }

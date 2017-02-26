@@ -6,7 +6,7 @@ import automobile.business.entities.WantedsSmallClassesMiddle;
 
 public interface WantedsSmallClassesMiddleDao {
 	
-	WantedsSmallClassesMiddle findOne(Integer id);
+	WantedsSmallClassesMiddle findOne(String id);
 
     List<WantedsSmallClassesMiddle> findAll();
 
@@ -16,6 +16,6 @@ public interface WantedsSmallClassesMiddleDao {
 
     void delete(WantedsSmallClassesMiddle entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
 
 }

@@ -59,7 +59,7 @@ public class WantedController {
 		
 		Set<SmallClass> smallClasses = new HashSet<SmallClass>();
 		for (String s : classIds) {
-			smallClasses.add(classService.findSmallClasById(Integer.valueOf(s)));
+			smallClasses.add(classService.findSmallClasById(s));
 		}
 		
 		wantedService.createWanted(wanted, smallClasses);

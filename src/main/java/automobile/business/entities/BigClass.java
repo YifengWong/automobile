@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 /**
  * @author CrazeWong
@@ -18,8 +20,9 @@ public class BigClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer bigClassId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String bigClassId = null;
 	
 	@Column(nullable = false, unique = true)
     private String name = null;
@@ -36,11 +39,11 @@ public class BigClass implements Serializable {
         this.name = name;
     }
 	
-	public Integer getBigClassId() {
+	public String getBigClassId() {
 		return bigClassId;
 	}
 
-	public void setBigClassId(Integer bigClassId) {
+	public void setBigClassId(String bigClassId) {
 		this.bigClassId = bigClassId;
 	}
 

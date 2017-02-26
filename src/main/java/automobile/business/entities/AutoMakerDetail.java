@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -19,8 +21,9 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer autoMakerDetailId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String autoMakerDetailId = null;
 	
 	@Column(nullable = false, unique = true)
 	private String username = null;
@@ -127,11 +130,11 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		this.headImgName = "";
 	}
 	
-	public Integer getAutoMakerDetailId() {
+	public String getAutoMakerDetailId() {
 		return autoMakerDetailId;
 	}
 
-	public void setAutoMakerDetailId(Integer autoMakerDetailId) {
+	public void setAutoMakerDetailId(String autoMakerDetailId) {
 		this.autoMakerDetailId = autoMakerDetailId;
 	}	
 

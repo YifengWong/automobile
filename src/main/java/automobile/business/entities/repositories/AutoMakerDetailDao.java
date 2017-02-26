@@ -6,7 +6,7 @@ import automobile.business.entities.AutoMakerDetail;
 
 public interface AutoMakerDetailDao {
 
-	AutoMakerDetail findOne(Integer id);
+	AutoMakerDetail findOne(String id);
 
     List<AutoMakerDetail> findAll();
 
@@ -16,9 +16,9 @@ public interface AutoMakerDetailDao {
 
     void delete(AutoMakerDetail entity);
 
-    void deleteById(Integer entityId);
+    void deleteById(String entityId);
     
     // API
-    AutoMakerDetail findOne(String username);
+    AutoMakerDetail findOneByUserName(String username);
 
 }

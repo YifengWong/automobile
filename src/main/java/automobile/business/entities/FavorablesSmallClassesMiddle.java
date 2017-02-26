@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name="FavorablesSmallClassesMiddle")
@@ -19,8 +21,9 @@ public class FavorablesSmallClassesMiddle implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer favorablesSmallClassesMiddleId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String favorablesSmallClassesMiddleId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="smallClassId")
@@ -43,11 +46,11 @@ public class FavorablesSmallClassesMiddle implements Serializable {
 		this.favorable = favorable;
 	}
 
-	public Integer getFavorablesSmallClassesMiddleId() {
+	public String getFavorablesSmallClassesMiddleId() {
 		return favorablesSmallClassesMiddleId;
 	}
 
-	public void setFavorablesSmallClassesMiddleId(Integer favorablesSmallClassesMiddleId) {
+	public void setFavorablesSmallClassesMiddleId(String favorablesSmallClassesMiddleId) {
 		this.favorablesSmallClassesMiddleId = favorablesSmallClassesMiddleId;
 	}
 

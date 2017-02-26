@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -19,8 +21,9 @@ public class SmallClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer smallClassId = null;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+    private String smallClassId = null;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name="bigClassId")
@@ -54,11 +57,11 @@ public class SmallClass implements Serializable {
 	}
 	
 	
-	public Integer getSmallClassId() {
+	public String getSmallClassId() {
 		return smallClassId;
 	}
 
-	public void setSmallClassId(Integer smallClassId) {
+	public void setSmallClassId(String smallClassId) {
 		this.smallClassId = smallClassId;
 	}
 
