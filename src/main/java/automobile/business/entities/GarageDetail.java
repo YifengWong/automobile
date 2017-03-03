@@ -344,6 +344,8 @@ public class GarageDetail extends AbstractUserDetail implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{\"garageDetailId\":\"");
 		builder.append(garageDetailId);
+		builder.append("\",\"username\":\"");
+		builder.append(username);
 		builder.append("\",\"name\":\"");
 		builder.append(name);
 		builder.append("\",\"managerName\":\"");

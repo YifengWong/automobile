@@ -91,6 +91,10 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 	@JsonIgnore
 	private String headImgName = null;
 	
+	@Column(nullable = false)
+	@JsonIgnore
+    private String scope = null;
+	
 	public AutoMakerDetail() {
 		super();
 	}
@@ -111,6 +115,7 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		this.address = address;
 		this.likes = 0;
 		this.headImgName = "";
+		this.scope = "";
 	}
 
 
@@ -128,6 +133,7 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		this.address = "";
 		this.likes = 0;
 		this.headImgName = "";
+		this.scope = "";
 	}
 	
 	public String getAutoMakerDetailId() {
@@ -267,6 +273,16 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 	}
 	
 	
+	public String getScope() {
+		return scope;
+	}
+
+
+	public void setScope(String scope) {
+		this.scope = scope;
+	}
+
+
 	public Set<DiscussToAutoMaker> getDiscussToAutoMakerSet() {
 		return discussToAutoMakerSet;
 	}
@@ -328,6 +344,8 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		StringBuilder builder = new StringBuilder();
 		builder.append("{\"autoMakerDetailId\":\"");
 		builder.append(autoMakerDetailId);
+		builder.append("\",\"username\":\"");
+		builder.append(username);
 		builder.append("\",\"name\":\"");
 		builder.append(name);
 		builder.append("\",\"autosSmallClassesMiddleSet\":");
@@ -338,6 +356,8 @@ public class AutoMakerDetail extends AbstractUserDetail implements Serializable 
 		builder.append(phone);
 		builder.append("\",\"qq\":\"");
 		builder.append(qq);
+		builder.append("\",\"scope\":\"");
+		builder.append(scope);
 		builder.append("\",\"wechat\":\"");
 		builder.append(wechat);
 		builder.append("\",\"province\":\"");

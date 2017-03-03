@@ -60,6 +60,7 @@
 		- province : 省份
 		- city : 城市
 		- address : 详细地址
+		- scope : 经营范围
 
 /updateGarageDetail : 修改个人信息（汽修厂）
 	- POST:

@@ -127,11 +127,13 @@ public class UserController {
 	// TODO update detail
 	@RequestMapping(value = "/updateAutoMakerDetail", method = RequestMethod.POST)
 	public void updateAutoMakerDetail(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
 		String name = request.getParameter("name");
 		String manager = request.getParameter("manager");
+		String scope = request.getParameter("scope");
 		String phone = request.getParameter("phone");
 		String qq = request.getParameter("qq");
 		String wechat = request.getParameter("wechat");
@@ -154,6 +156,7 @@ public class UserController {
 		autoMakerDetail.setProvince(province);
 		autoMakerDetail.setCity(city);
 		autoMakerDetail.setAddress(address);
+		autoMakerDetail.setScope(scope);
 		userDetailService.updateAutoMakerDetail(autoMakerDetail);
 		response.getWriter().write(userRe.getJsonString());
 		
@@ -161,6 +164,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/updateGarageDetail", method = RequestMethod.POST)
 	public void updateGarageDetail(HttpServletRequest request, HttpServletResponse response)	throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		

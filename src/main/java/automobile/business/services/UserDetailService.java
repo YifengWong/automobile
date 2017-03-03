@@ -88,7 +88,7 @@ public class UserDetailService {
      * 根据用户名（应该为手机号）获取汽配商用户
      */
     public AutoMakerDetail findAutoMakerDetailByUserName(final String username) {
-    	return autoMakerDetailDao.findOne(username);
+    	return autoMakerDetailDao.findOneByUserName(username);
     }
     
     /**
@@ -97,7 +97,7 @@ public class UserDetailService {
      * 根据用户名（应该为手机号）获取汽修厂用户
      */
     public GarageDetail findGarageDetailByUserName(final String username) {
-    	return garageDetailDao.findOne(username);
+    	return garageDetailDao.findOneByUserName(username);
     }
     
     /**
