@@ -76,7 +76,6 @@ public class TestController {
 		AutoMakerDetail auto1 = new AutoMakerDetail("12345678910", "awerqwerqwe", "qipei 1");
 		userDetailService.createAutoMakerDetail(auto1, set1);
 
-		
 		GarageDetail gd1 = new GarageDetail("12345645610", "IIAHSFDJK", "garage1");
 		userDetailService.createGarageDetail(gd1);
 		

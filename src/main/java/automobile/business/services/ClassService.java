@@ -98,5 +98,14 @@ public class ClassService {
 	public SmallClass findSmallClassByName(String name) {
 		return smallClassDao.findOne(name);
 	}
+	
+	
+	public void deleteSmallClass(SmallClass sc) {
+		smallClassDao.delete(sc);
+	}
+	
+	public void deleteBigClass(BigClass bc) {
+		bigClassDao.delete(bc);
+	}
 
 }

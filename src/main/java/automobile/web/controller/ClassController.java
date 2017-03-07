@@ -52,4 +52,25 @@ public class ClassController {
 				.getJsonString());
 	}
 	
+	@RequestMapping(value = "/deleteBigClass", method = RequestMethod.POST)
+	public void deleteBigClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String bigClassId = request.getParameter("bigClassId");
+		BigClass bigClass = classService.findBigClassById(bigClassId);
+		
+		for (SmallClass sc : bigClass.getSmallClassesSet()) {
+			classService.deleteSmallClass(sc);
+		}
+		classService.deleteBigClass(bigClass);
+		
+	}
+	
+	@RequestMapping(value = "/deleteSmallClass", method = RequestMethod.POST)
+	public void deleteSmallClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String smallClassId = request.getParameter("smallClassId");
+		SmallClass smallClass = classService.findSmallClasById(smallClassId);
+		
+		classService.deleteSmallClass(smallClass);
+		
+	}
+	
 }

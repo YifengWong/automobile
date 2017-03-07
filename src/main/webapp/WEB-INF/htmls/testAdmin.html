@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>test post</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div>
+		<a href="http://localhost:8080/getClasses">getClasses</a>
+	</div>
+	<div>
+		<h2>创建类别</h2>
+		<form action='http://localhost:8080/createClass' method='post' accept-charset="UTF-8">
+			<div>
+				<span>大类名称 </span><input name='bigClassName' id='bigClassName'><br>
+				<span>小类名称 </span><input name='smallClassName' id='smallClassName'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>删除大类</h2>
+		<form action='http://localhost:8080/deleteBigClass' method='post' accept-charset="UTF-8">
+			<div>
+				<span>大类ID </span><input name='bigClassId' id='bigClassId'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>删除小类</h2>
+		<form action='http://localhost:8080/deleteSmallClass' method='post' accept-charset="UTF-8">
+			<div>
+				<span>小类ID </span><input name='smallClassId' id='smallClassId'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	
+	
+	<div>
+		<h2>汽配商注册</h2>
+		<form action='http://localhost:8080/registerAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>汽配商增加分类</h2>
+		<form action='http://localhost:8080/addAutoMakerClass' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+				<span>小类ID </span><input name='classId' id='classId'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>汽修厂注册</h2>
+		<form action='http://localhost:8080/registerGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>汽配商登录</h2>
+		<form action='http://localhost:8080/loginAutoMaker' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>汽修厂登录</h2>
+		<form action='http://localhost:8080/loginGarage' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	
+	<div>
+		<h2>更新汽配商信息</h2>
+		<form action='http://localhost:8080/updateAutoMakerDetail' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+				<span>名称 </span><input name='name' id='name'><br>
+				<span>负责人 </span><input name='manager' id='manager'><br>
+				<span>手机 </span><input name='phone' id='phone'><br>
+				<span>QQ </span><input name='qq' id='qq'><br>
+				<span>微信号 </span><input name='wechat' id='wechat'><br>
+				<span>省份 </span><input name='province' id='province'><br>
+				<span>城市 </span><input name='city' id='city'><br>
+				<span>地址 </span><input name='address' id='address'><br>
+				<span>经营范围 </span><input name='scope ' id='scope '><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+	<div>
+		<h2>更新汽修厂信息</h2>
+		<form action='http://localhost:8080/updateGarageDetail' method='post' accept-charset="UTF-8">
+			<div>
+				<span>手机号 </span><input name='username' id='username'><br>
+				<span>密码 </span><input name='password' id='password'><br>
+				<span>名称 </span><input name='name' id='name'><br>
+				<span>负责人 </span><input name='manager' id='manager'><br>
+				<span>手机 </span><input name='phone' id='phone'><br>
+				<span>QQ </span><input name='qq' id='qq'><br>
+				<span>微信号 </span><input name='wechat' id='wechat'><br>
+				<span>省份 </span><input name='province' id='province'><br>
+				<span>城市 </span><input name='city' id='city'><br>
+				<span>地址 </span><input name='address' id='address'><br>
+			</div>
+			<div>
+				<button>提交</button>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

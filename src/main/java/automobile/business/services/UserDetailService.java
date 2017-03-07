@@ -56,6 +56,12 @@ public class UserDetailService {
     	
     }
     
+    public void addAutoMakerDetailClass(final AutoMakerDetail autoMakerDetail, SmallClass sc) {
+    	if (sc == null) return;
+    	if (autoMakerDetail == null) return;
+    	autosSmallClassesMiddleDao.create(new AutosSmallClassesMiddle(sc, autoMakerDetail));
+    }
+    
     /**
      * @param id
      * @return

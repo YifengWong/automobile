@@ -1,6 +1,8 @@
 package automobile.web.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +55,31 @@ public class UserController {
 				.getJsonString());
 		
 	}
+
+	@RequestMapping(value = "/addAutoMakerClass", method = RequestMethod.POST)
+	public void addAutoMakerClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
+		String classId = request.getParameter("classId");
+		
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		ResultObject userRe = userDetailService.checkAutoMakerDetail(username, password);
+		if (userRe.getObject() == null) {
+			response.getWriter().write(userRe.getJsonString());
+			return;
+		}
+		
+		AutoMakerDetail autoMakerDetail = (AutoMakerDetail) userRe.getObject();
+		SmallClass sc = classService.findSmallClasById(classId);
+		userDetailService.addAutoMakerDetailClass(autoMakerDetail, sc);
+		
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.USER_REGISTER_SUCC, null)
+				.getJsonString());
+		
+	}
+	
+	
 	
 	@RequestMapping(value = "/registerGarage", method = RequestMethod.POST)
 	public void registerGarage(HttpServletRequest request, HttpServletResponse response) throws Exception {
