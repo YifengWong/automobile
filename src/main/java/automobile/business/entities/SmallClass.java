@@ -25,7 +25,7 @@ public class SmallClass implements Serializable {
 	@GenericGenerator(name = "uuid", strategy = "uuid")
     private String smallClassId = null;
 	
-	@ManyToOne(cascade={CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToOne(cascade={CascadeType.ALL}, fetch = FetchType.EAGER)
 	@JoinColumn(name="bigClassId")
 	@JsonIgnore
 	private BigClass bigClass = null;

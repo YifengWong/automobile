@@ -1,5 +1,7 @@
 package automobile.web.controller;
 
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,9 +41,10 @@ public class ClassController {
 		// TODO: admin 使用单独一个数据库表，手动插入数据库
 		
 		BigClass bigClass = classService.findBigClassByName(bigClassName);
+		
 		if (bigClass == null) {
 			bigClass = new BigClass(bigClassName);
-			classService.createBigClass(bigClass);
+//			classService.createBigClass(bigClass);
 		}
 		
 		SmallClass smallClass = new SmallClass(bigClass, smallClassName);
@@ -54,23 +57,37 @@ public class ClassController {
 	
 	@RequestMapping(value = "/deleteBigClass", method = RequestMethod.POST)
 	public void deleteBigClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String bigClassId = request.getParameter("bigClassId");
 		BigClass bigClass = classService.findBigClassById(bigClassId);
-		
-		for (SmallClass sc : bigClass.getSmallClassesSet()) {
-			classService.deleteSmallClass(sc);
+		Set<SmallClass> mcs = bigClass.getSmallClassesSet();
+		if (mcs != null) {
+			for (SmallClass sc : bigClass.getSmallClassesSet()) {
+				classService.deleteSmallClass(sc);
+			}
 		}
-		classService.deleteBigClass(bigClass);
+//		bigClass.setSmallClassesSet(null);
+		
+//		classService.deleteBigClass(bigClass);
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.CLASS_REMOVE_SUCC, null)
+				.getJsonString());
 		
 	}
 	
 	@RequestMapping(value = "/deleteSmallClass", method = RequestMethod.POST)
 	public void deleteSmallClass(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/json;charset=UTF-8");
 		String smallClassId = request.getParameter("smallClassId");
 		SmallClass smallClass = classService.findSmallClasById(smallClassId);
 		
 		classService.deleteSmallClass(smallClass);
-		
+//		smallClass.getBigClass().getSmallClassesSet().remove(smallClass);
+//
+//		classService.createBigClass(smallClass.getBigClass());
+		response.getWriter().write(new ResultObject(
+				StaticString.RESULT_SUCC, StaticString.CLASS_REMOVE_SUCC, null)
+				.getJsonString());
 	}
 	
 }

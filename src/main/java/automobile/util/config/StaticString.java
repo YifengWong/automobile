@@ -22,6 +22,7 @@ public class StaticString {
 	public static String CLASS_ALL = "所有类别";
 	public static String CLASS_CREATE = "新建类别成功";
 	public static String CLASS_AUTOMAKERS = "当前分类所有汽配商";
+	public static String CLASS_REMOVE_SUCC = "删除分类成功";
 	
 	
 	// 评论相关

@@ -6,10 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import automobile.business.entities.AutosSmallClassesMiddle;
 import automobile.business.entities.BigClass;
+import automobile.business.entities.FavorablesSmallClassesMiddle;
 import automobile.business.entities.SmallClass;
+import automobile.business.entities.WantedsSmallClassesMiddle;
+import automobile.business.entities.repositories.AutosSmallClassesMiddleDao;
 import automobile.business.entities.repositories.BigClassDao;
+import automobile.business.entities.repositories.FavorablesSmallClassesMiddleDao;
 import automobile.business.entities.repositories.SmallClassDao;
+import automobile.business.entities.repositories.WantedsSmallClassesMiddleDao;
 
 /**
  * @author CrazeWong
@@ -24,6 +30,15 @@ public class ClassService {
 	
 	@Autowired
 	private SmallClassDao smallClassDao;
+	
+	@Autowired
+    private AutosSmallClassesMiddleDao autosSmallClassesMiddleDao;
+	
+	@Autowired
+	private WantedsSmallClassesMiddleDao wantedsSmallClassesMiddleDao;
+	
+	@Autowired
+    private FavorablesSmallClassesMiddleDao favorablesSmallClassesMiddleDao;
 	
 	
 	public ClassService() {
@@ -78,7 +93,7 @@ public class ClassService {
 	 * 根据名字获取大分类
 	 */
 	public BigClass findBigClassByName(String name) {
-		return bigClassDao.findOne(name);
+		return bigClassDao.findOneByName(name);
 	}
 	
 	/**
@@ -101,6 +116,19 @@ public class ClassService {
 	
 	
 	public void deleteSmallClass(SmallClass sc) {
+//		List<AutosSmallClassesMiddle> autos = autosSmallClassesMiddleDao.findBySmallClass(sc);
+//		List<FavorablesSmallClassesMiddle> fas = favorablesSmallClassesMiddleDao.findBySmallClass(sc);
+//		List<WantedsSmallClassesMiddle> was = wantedsSmallClassesMiddleDao.findBySmallClass(sc);
+//		for (AutosSmallClassesMiddle m : autos) {
+//			autosSmallClassesMiddleDao.delete(m);
+//		}
+//		for (FavorablesSmallClassesMiddle m : fas) {
+//			favorablesSmallClassesMiddleDao.delete(m);
+//		}
+//		for (WantedsSmallClassesMiddle m : was) {
+//			wantedsSmallClassesMiddleDao.delete(m);
+//		}
+		
 		smallClassDao.delete(sc);
 	}
 	

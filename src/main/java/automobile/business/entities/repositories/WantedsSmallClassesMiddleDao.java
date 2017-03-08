@@ -2,6 +2,8 @@ package automobile.business.entities.repositories;
 
 import java.util.List;
 
+import automobile.business.entities.AutosSmallClassesMiddle;
+import automobile.business.entities.SmallClass;
 import automobile.business.entities.WantedsSmallClassesMiddle;
 
 public interface WantedsSmallClassesMiddleDao {
@@ -17,5 +19,7 @@ public interface WantedsSmallClassesMiddleDao {
     void delete(WantedsSmallClassesMiddle entity);
 
     void deleteById(String entityId);
+    
+	public List<WantedsSmallClassesMiddle> findBySmallClass(final SmallClass smallClass);
 
 }

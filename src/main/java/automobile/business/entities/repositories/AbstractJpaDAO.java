@@ -31,7 +31,8 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
     }
 
     public void create(final T entity) {
-        entityManager.persist(entity);
+        entityManager.persist(entityManager.merge(entity));
+        entityManager.flush();
     }
 
     public T update(final T entity) {
@@ -40,7 +41,10 @@ public abstract class AbstractJpaDAO<T extends Serializable> {
     }
 
     public void delete(final T entity) {
-        entityManager.remove(entity);
+    	entityManager.refresh(entityManager.merge(entity));
+    	entityManager.remove(entityManager.merge(entity));
+//        entityManager.remove(entity);
+    	entityManager.flush();
     }
 
     public void deleteById(final String entityId) {
