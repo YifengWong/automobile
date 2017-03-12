@@ -27,6 +27,10 @@ public class BigClass implements Serializable {
 	@Column(nullable = false, unique = true)
     private String name = null;
 	
+	@Column(nullable = false)
+    private Integer priority = null;	
+	
+	
 	@OneToMany(mappedBy="bigClass", fetch = FetchType.EAGER)
 	private Set<SmallClass> smallClassesSet = new HashSet<SmallClass>();
 
@@ -34,11 +38,22 @@ public class BigClass implements Serializable {
         super();
     }
 	
-    public BigClass(final String name) {
+    public BigClass(final String name, final Integer priority) {
         super();
         this.name = name;
+        this.priority = priority;
     }
+    
+    
 	
+	public Integer getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+
 	public String getBigClassId() {
 		return bigClassId;
 	}

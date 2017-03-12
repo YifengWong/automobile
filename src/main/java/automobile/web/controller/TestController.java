@@ -58,14 +58,14 @@ public class TestController {
 	
 	@RequestMapping(value = "/writeDB")
 	public void writeDB(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		BigClass big1 = new BigClass("单项件");
+		BigClass big1 = new BigClass("单项件", 2);
 		classService.createBigClass(big1);
 		
-		BigClass big2 = new BigClass("欧美车系");
+		BigClass big2 = new BigClass("欧美车系", 3);
 		classService.createBigClass(big2);
 		
-		SmallClass small1 = new SmallClass(big1, "水箱");
-		SmallClass small2 = new SmallClass(big1, "电池");
+		SmallClass small1 = new SmallClass(big1, "水箱", 1);
+		SmallClass small2 = new SmallClass(big1, "电池", 1);
 		classService.createSmallClass(small1);
 		classService.createSmallClass(small2);
 		
@@ -96,8 +96,9 @@ public class TestController {
 	public void testPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String bigClassPriority = request.getParameter("bigClassPriority");
 		
-		BigClass big1 = new BigClass(username);
+		BigClass big1 = new BigClass(username, 2);
 		
 		classService.createBigClass(big1);
 		response.setContentType("text/json;charset=UTF-8");

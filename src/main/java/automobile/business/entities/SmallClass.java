@@ -33,6 +33,9 @@ public class SmallClass implements Serializable {
 	@Column(nullable = false, unique = true)
     private String name = null;
 	
+	@Column(nullable = false)
+    private Integer priority = null;
+	
 	@OneToMany(mappedBy="smallClass", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private Set<AutosSmallClassesMiddle> autosSmallClassesMiddleSet = new HashSet<AutosSmallClassesMiddle>();
@@ -50,13 +53,22 @@ public class SmallClass implements Serializable {
 		super();
 	}
 	
-	public SmallClass(final BigClass bigClass, final String name) {
+	public SmallClass(final BigClass bigClass, final String name, final Integer priority) {
 		super();
 		this.bigClass = bigClass;
 		this.name = name;
+		this.priority = priority;
 	}
 	
 	
+	public Integer getPriority() {
+		return priority;
+	}
+
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
+
 	public String getSmallClassId() {
 		return smallClassId;
 	}

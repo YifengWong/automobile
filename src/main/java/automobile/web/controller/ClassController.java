@@ -37,17 +37,19 @@ public class ClassController {
 
 		String bigClassName = request.getParameter("bigClassName");
 		String smallClassName = request.getParameter("smallClassName");
+		Integer bigClassPriority = Integer.valueOf(request.getParameter("bigClassPriority"));
+		Integer smallClassPriority = Integer.valueOf(request.getParameter("smallClassPriority"));
 		
 		// TODO: admin 使用单独一个数据库表，手动插入数据库
 		
 		BigClass bigClass = classService.findBigClassByName(bigClassName);
 		
 		if (bigClass == null) {
-			bigClass = new BigClass(bigClassName);
+			bigClass = new BigClass(bigClassName, bigClassPriority);
 //			classService.createBigClass(bigClass);
 		}
 		
-		SmallClass smallClass = new SmallClass(bigClass, smallClassName);
+		SmallClass smallClass = new SmallClass(bigClass, smallClassName, smallClassPriority);
 		classService.createSmallClass(smallClass);
 		
 		response.getWriter().write(new ResultObject(
